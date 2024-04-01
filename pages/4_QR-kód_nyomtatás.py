@@ -5,7 +5,9 @@ from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, ColumnsAutoSiz
 
 from qrtoimg import Book, generate_print_sheet
 
-
+st.set_page_config(
+    page_title="Könyvek"
+)
 def load_data():
     book_sheet, workbook, lend_sheet, lend_workbook = load_sheets()
     st.session_state["book_sheet"] = book_sheet
@@ -32,11 +34,11 @@ def load_data():
     st.session_state["print_sheet"] = print_sheet
 
 
-def nyomtatas():
+def nyomtatas(col):
 
     for_print = st.session_state["print_edited"].loc[st.session_state["print_edited"]["PRINTED"] == True]
     books = []
-    link = "https://sulilms-9bth0kp68-gamermajoms-projects.vercel.app/?={}"  # TODO: CHANGE TO VERCEL
+    link = "https://sulilms-9bth0kp68-gamermajoms-projects.vercel.app/?id={}"  # TODO: CHANGE TO VERCEL
 
     for id,record in for_print.iterrows():
         print(link.format(record["ID"]))
@@ -46,12 +48,13 @@ def nyomtatas():
     d,bio = generate_print_sheet(books,bytes=True)
 
     if d:
-        st.download_button(
-            label="Click here to download",
-            data=bio.getvalue(),
-            file_name="Nyomtatas.docx",
-            mime="docx"
-        )
+        with col:
+            st.download_button(
+                label="Letöltés",
+                data=bio.getvalue(),
+                file_name="Nyomtatas.docx",
+                mime="docx"
+            )
 
 if 'book_sheet' not in st.session_state or 'lend_sheet' not in st.session_state or 'print_sheet' not in st.session_state:
     load_data()
@@ -62,7 +65,7 @@ if 'selected_rows' not in st.session_state:
 if "row_input" not in st.session_state:
     st.session_state['row_input'] = {}
 
-button_col1,button_col2,button_col3 = st.columns([2,2,9])
+button_col1,button_col2,button_col3, button_col4 = st.columns([3,3,3,10])
 
 with button_col1:
     if st.button("Újratöltés"):
@@ -70,7 +73,7 @@ with button_col1:
 
 with button_col2:
     if st.button("Nyomtatás"):
-        nyomtatas()
+        nyomtatas(button_col3)
 
 st.session_state["print_edited"] = st.data_editor(st.session_state["print_sheet"], disabled=["ID","AUTHOR","TITLE","ISBN", "QUANTITY", "USED"])
 

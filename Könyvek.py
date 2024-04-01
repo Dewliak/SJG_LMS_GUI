@@ -15,11 +15,7 @@ from load_save_data import load_sheets
 #show_pages_from_config(".streamlit/pages.toml")
 
 
-st.set_page_config(
-    page_title="Hello",
-    page_icon="👋",
-    layout="wide"
-)
+
 
 #book_service = BookService()
 #lend_service = LendService()
@@ -37,7 +33,7 @@ if 'book_sheet' not in st.session_state or 'lend_sheet' not in st.session_state:
 
 if not st.session_state['book_sheet'].empty:
     #print(book_sheet.columns)
-    gb = GridOptionsBuilder.from_dataframe(st.session_state['book_sheet'][["ID", "AUTHOR", "TITLE", "ISBN", "QUANTITY", "USED"]])
+    gb = GridOptionsBuilder.from_dataframe(st.session_state['book_sheet'][["ID", "AUTHOR", "TITLE", "QUANTITY", "USED","ISBN"]])
     # configure selection
     gb.configure_selection(selection_mode="single", use_checkbox=True)
     gb.configure_side_bar()
