@@ -1,0 +1,70 @@
+[[pages]]
+path = "main_page.py"
+name = "Dashboard"
+icon = ":bar_chart:"
+
+[[pages]]
+path = "pages/1_Osoby.py"
+name = "Persons"
+icon = ":file_folder:"
+
+[[pages]]
+path = "pages/5_Pridat_osobu.py"
+name = " --> Add person"
+
+[[pages]]
+path = "pages/7_Edit_status.py"
+name = " --> Edit status"
+
+[[pages]]
+path = "pages/12_add_comment.py"
+name = " --> Add comment"
+
+[[pages]]
+path = "pages/14_edit_person_data.py"
+name = " --> Change Person data"
+
+[[pages]]
+path = "pages/16_make_ooo.py"
+name = " --> Make OOO"
+
+[[pages]]
+path = "pages/6_Delete_person.py"
+name = " --> Delete person"
+
+[[pages]]
+path = "pages/2_Firmy.py"
+icon = ":file_folder:"
+
+[[pages]]
+path = "pages/10_add_company.py"
+name = " --> Add Company"
+
+[[pages]]
+path = "pages/15_edit_company_data.py"
+name = " --> Change Company data"
+
+[[pages]]
+path = "pages/13_delete_company.py"
+name = " --> Delete Company"
+
+[[pages]]
+path = "pages/8_Find_mail.py"
+name = "Email Finder"
+icon = ":e-mail:"
+
+[[pages]]
+path = "pages/11_api_search.py"
+name = "-- HELPING PAGE -- api"
+
+[[pages]]
+path = "pages/check_email.py"
+name = "-- HELPING PAGE -- email_finder"
+
+[[pages]]
+path = "pages/show_mail.py"
+name = "-- HELPING PAGE -- show_mail"
+
+
+
+
