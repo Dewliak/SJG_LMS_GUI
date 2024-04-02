@@ -22,6 +22,15 @@ function(params) {
 };
 """)
 
+def check_if_book_at_disposal(book_df, lend_df, lend_sheet):
+
+    for id, record in lend_df.iterrows():
+        if len(book_df.loc[book_df["ID"] == record["BOOK_ID"]]) == 0 and record["STATUS"] != "Book not at disposal":
+            lend_df.loc[lend_df["ID"] == record["ID"], 'STATUS'] = 'Book not at disposal'
+
+    update_sheet(lend_sheet,lend_df)
+
+    return lend_df
 def format_books(book_df, lend_df):
 
     record_sheet = []
@@ -61,12 +70,18 @@ def format_books(book_df, lend_df):
             new_record["TITLE"] = ""
             new_record["STATUS"] = "Book not at disposal"
 
+
         record_sheet.append(new_record)
 
     return record_sheet
 
 def load_lent_data():
     book_sheet, workbook, lend_sheet, lend_workbook = load_sheets()
+
+    lend_sheet = check_if_book_at_disposal(book_sheet, lend_sheet, lend_workbook)
+
+    book_sheet, workbook, lend_sheet, lend_workbook = load_sheets()
+
     st.session_state["book_sheet"] = book_sheet
     st.session_state["lend_sheet"] = lend_sheet
     st.session_state["workbook"] = workbook

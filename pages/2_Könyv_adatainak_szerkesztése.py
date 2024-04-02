@@ -9,6 +9,16 @@ st.set_page_config(layout="wide")
 
 from load_save_data import add_book, update_sheet, load_sheets
 
+
+def check_if_book_at_disposal(book_df, lend_df, lend_sheet):
+    for id, record in lend_df.iterrows():
+        if len(book_df.loc[book_df["ID"] == record["BOOK_ID"]]) == 0 and record["STATUS"] != "Book not at disposal":
+            lend_df.loc[lend_df["ID"] == record["ID"], 'STATUS'] = 'Book not at disposal'
+
+    update_sheet(lend_sheet, lend_df)
+
+    return lend_df
+
 if "selected_rows" not in st.session_state:
     st.session_state["selected_rows"] = []
 
@@ -78,6 +88,9 @@ if len(st.session_state["book_sheet"]):
 
                 st.session_state['book_sheet'] = st.session_state['book_sheet'].drop(index)
                 update_sheet(st.session_state["workbook"], st.session_state["book_sheet"])
+
+                st.session_state["lend_sheet"] = check_if_book_at_disposal(st.session_state["book_sheet"],st.session_state["lend_sheet"],st.session_state["lend_workbook"])
+
                 modal.close()
 
             if st.button("NEM"):
