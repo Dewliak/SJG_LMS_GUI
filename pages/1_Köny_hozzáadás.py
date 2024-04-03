@@ -20,9 +20,9 @@ with st.form("my_form",clear_on_submit=True):
     if submitted:
         if name != "" and author != "":
 
-            add_book(st.session_state['workbook'],st.session_state['book_sheet'], author, name, isbn, quantity)
+            st.session_state['book_sheet'] = add_book(st.session_state['workbook'],st.session_state['book_sheet'], author, name, isbn, quantity)
             st.success(f"A könyv sikeresen hozzá lett adva")
-            update_sheet(st.session_state['workbook'],st.session_state['book_sheet'])
+            
             st.rerun()
         else:
             st.error("Minden *-al jelölt mezőt ki kell tölteni")
