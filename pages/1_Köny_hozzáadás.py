@@ -22,7 +22,7 @@ with st.form("my_form",clear_on_submit=True):
 
             st.session_state['book_sheet'] = add_book(st.session_state['workbook'],st.session_state['book_sheet'], author, name, isbn, quantity)
             st.success(f"A könyv sikeresen hozzá lett adva")
-            
+            time.sleep(1)
             st.rerun()
         else:
             st.error("Minden *-al jelölt mezőt ki kell tölteni")
