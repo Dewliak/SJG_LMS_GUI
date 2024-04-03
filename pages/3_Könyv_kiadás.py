@@ -78,7 +78,8 @@ def format_books(book_df, lend_df):
 def load_lent_data():
     book_sheet, workbook, lend_sheet, lend_workbook = load_sheets()
 
-    lend_sheet = check_if_book_at_disposal(book_sheet, lend_sheet, lend_workbook)
+    if len(lend_sheet):
+        lend_sheet = check_if_book_at_disposal(book_sheet, lend_sheet, lend_workbook)
 
     book_sheet, workbook, lend_sheet, lend_workbook = load_sheets()
 
