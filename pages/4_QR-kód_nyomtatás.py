@@ -38,7 +38,7 @@ def nyomtatas(col):
 
     for_print = st.session_state["print_edited"].loc[st.session_state["print_edited"]["PRINTED"] == True]
     books = []
-    link = "https://sulilms-9bth0kp68-gamermajoms-projects.vercel.app/?id={}"  # TODO: CHANGE TO VERCEL
+    link = "https://sulilms.vercel.app/?id={}"  # TODO: CHANGE TO VERCEL
 
     for id,record in for_print.iterrows():
         print(link.format(record["ID"]))
