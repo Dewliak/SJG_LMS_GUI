@@ -43,7 +43,7 @@ def nyomtatas(col):
     for id,record in for_print.iterrows():
         print(link.format(record["ID"]))
         for i in range(int(record["PRINT_QUANTITY"])):
-            books.append(Book(record["TITLE"],record["AUTHOR"],link.format(record["ID"])))
+            books.append(Book(record["ID"],record["TITLE"],record["AUTHOR"],link.format(record["ID"])))
     print(books)
     d,bio = generate_print_sheet(books,bytes=True)
 

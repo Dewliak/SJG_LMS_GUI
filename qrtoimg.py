@@ -11,6 +11,7 @@ from datetime import datetime
 
 @dataclass
 class Book:
+    id: str
     name: str
     author: str
     link: str
@@ -98,7 +99,7 @@ def generate_print_sheet(data, bytes = False):
             generate_qr_code(book.link)
             run.add_picture("qrcode.png")
             # row[0].text = str(id)
-            row[2*counter+1].text = book.name + "\n\n" + book.author
+            row[2*counter+1].text = book.id + "\n\n" + book.name + "\n\n" + book.author
 
             counter += 1
 
