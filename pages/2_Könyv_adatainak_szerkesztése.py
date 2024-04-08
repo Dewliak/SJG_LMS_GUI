@@ -60,7 +60,7 @@ if len(st.session_state["book_sheet"]):
     gb.configure_side_bar()
     gridOptions = gb.build()
 
-    data = AgGrid(st.session_state["book_sheet"],
+    st.session_state['data'] = AgGrid(st.session_state["book_sheet"],
                   gridOptions=gridOptions,
                   enable_enterprise_modules=True,
                   allow_unsafe_jscode=True,
@@ -68,7 +68,8 @@ if len(st.session_state["book_sheet"]):
                   columns_auto_size_mode=1,
                   height=600,
                   theme="alpine")  # ColumnsAutoSizeMode.FIT_CONTENTS #alpine, balham, streamlit, material
-    st.session_state["selected_rows"] = data["selected_rows"]
+    print("SELECTED_ROW",st.session_state['data']["selected_rows"])
+    st.session_state["selected_rows"] = st.session_state['data']["selected_rows"]
 
 
     if open_modal and len(st.session_state["selected_rows"]) != 0:
@@ -95,19 +96,29 @@ if len(st.session_state["book_sheet"]):
 
             if st.button("NEM"):
                 modal.close(())
-
+print(st.session_state["selected_rows"])
 if len(st.session_state["selected_rows"]) > 0:
+    print(st.session_state["selected_rows"])
     with st.form("my_form", clear_on_submit=True):
-        selected_rows = st.session_state["selected_rows"]
+        selected_rows = st.session_state["selected_rows"].to_dict()
+
         print("SELECTE_ROW", selected_rows)
+
+
+        TITLE = tuple(selected_rows["TITLE"].values())[0]
+        AUTHOR = tuple(selected_rows["AUTHOR"].values())[0]
+        ISBN = tuple(selected_rows["ISBN"].values())[0]
+        QUANTITY = tuple(selected_rows["QUANTITY"].values())[0]
+        USED = tuple(selected_rows["USED"].values())[0]
+
         with st.sidebar:
 
             if len(selected_rows) != 0:
                 print("DEBUG:", selected_rows)
-                name = st.text_input("Meno:",value=selected_rows[0]["TITLE"])
-                author = st.text_input("Author:",value=selected_rows[0]["AUTHOR"])
-                isbn = st.text_input("ISBN:", value=selected_rows[0]["ISBN"])
-                quantity = st.number_input(label="Quantity:",value = selected_rows[0]["QUANTITY"],min_value = min(selected_rows[0]["USED"],selected_rows[0]["QUANTITY"]))
+                name = st.text_input("Meno:",value=TITLE)
+                author = st.text_input("Author:",value=AUTHOR)
+                isbn = st.text_input("ISBN:", value=ISBN)
+                quantity = st.number_input(label="Quantity:",value = QUANTITY,min_value = min(QUANTITY,USED))
 
             submitted = st.form_submit_button("Submit")
 
@@ -117,14 +128,15 @@ if len(st.session_state["selected_rows"]) > 0:
             if submitted:
                 print("DEBUG:", selected_rows)
                 if len(selected_rows) != 0:
-                    BOOK_ID = selected_rows[0]["ID"]
+                    BOOK_ID = tuple(selected_rows["ID"].values())[0]
+
                     try:
-                        print("DEBUG:", data)
+                        print("DEBUG:", st.session_state['data'])
                         #firma_id = firma.split("-")[0].strip()
                         #update person data
                         used = st.session_state["book_sheet"].loc[st.session_state["book_sheet"]["ID"] == BOOK_ID,  "USED"]
                         st.session_state["book_sheet"].loc[st.session_state["book_sheet"]["ID"] == BOOK_ID] = pd.DataFrame({"ID":BOOK_ID,"AUTHOR":author, "TITLE":name, "ISBN":isbn,"QUANTITY": quantity,"USED":used})
-                        update_sheet(st.session_state["sheet"],st.session_state["book_sheet"])
+                        update_sheet(st.session_state["workbook"],st.session_state["book_sheet"])
                         #book_service.update(BOOK_ID,{"Name":name,"Author":author,"ISBN":isbn,"quantity":quantity })
                         st.success(f"The book's data was successfully update")
                         st.experimental_rerun()

@@ -61,10 +61,8 @@ def format_books(book_df, lend_df):
 
             if return_date < datetime.now() and record["STATUS"] != "Email Sent":
                 new_record["STATUS"] = "Needs to be returned"
-            elif record["STATUS"] == "Email sent":
-                new_record["STATUS"] = "Email sent"
             else:
-                new_record["STATUS"] = "Lent"
+                new_record["STATUS"] = record["STATUS"]
         else:
             new_record["AUTHOR"] = ""
             new_record["TITLE"] = ""
@@ -91,8 +89,8 @@ def load_lent_data():
 
     st.session_state["book_dataframe"] = pd.DataFrame(format_books(book_sheet, lend_sheet))
 
-if "selected_rows" not in st.session_state:
-    st.session_state.selected_rows = []
+if 'lend_selected_rows'  not in st.session_state:
+    st.session_state.lend_selected_rows = {}
 
 from load_save_data import add_book, update_sheet, load_sheets
 
@@ -103,16 +101,18 @@ if 'book_sheet' not in st.session_state or 'lend_sheet' not in st.session_state 
 button_col1,button_col2,button_col3,button_col4 = st.columns([2,2,4,6])
 
 
-def give_back_book(lent_id):
+def give_back_book(lent_id: int):
     """
         1. Book Sheet Lent - 1
         2. Lend Sheet delete row
         """
     book_df = st.session_state["book_sheet"]
     lent_df = st.session_state["lend_sheet"]
-    print("LENT DF", lent_df.loc[lent_df["ID"] == lent_id, "BOOK_ID"].array[0])
-    book_id = int(lent_df.loc[lent_df["ID"] == lent_id, "BOOK_ID"].array[0])
+    #print("LENT DF", lent_df.loc[lent_df["ID"] == lent_id, "BOOK_ID"].array)
+    #print("LENT ID", lent_id)
+    book_id = lent_df.loc[lent_df["ID"] == lent_id]["BOOK_ID"].array[0]
 
+    #print("BOOK DF", len(book_df.loc[book_df["ID"] == book_id, "ID"]))
     if not book_df.loc[book_df["ID"] == book_id].empty:
         st.session_state["book_sheet"].loc[st.session_state["book_sheet"]["ID"] == book_id, "USED"] -= 1
 
@@ -133,9 +133,11 @@ with st.container():
 
     with button_col1:
         if st.button("Visszaad"):
-            if st.session_state.selected_rows != []:
-                lent_id = st.session_state.selected_rows[0]["ID"]
+            if len(st.session_state.lend_selected_rows) != 0:
+                selected_rows = st.session_state.lend_selected_rows.to_dict()
+                #lent_id = st.session_state.lend_selected_rows[0]["ID"]
 
+                lent_id = tuple(selected_rows["ID"].values())[0]
 
                 if give_back_book(lent_id):
                     load_lent_data()
@@ -172,11 +174,11 @@ with st.container():
 
         data = AgGrid(st.session_state['book_dataframe'],
                           gridOptions=gridOptions,
-                          enable_enterprise_modules=True,
+                          enable_enterprise_modules=False,
                           allow_unsafe_jscode=True,
                           update_mode=GridUpdateMode.SELECTION_CHANGED,
                           columns_auto_size_mode=1,
                           height=600,
                           theme="alpine")  # ColumnsAutoSizeMode.FIT_CONTENTS #alpine, balham, streamlit, material
-        st.session_state.selected_rows = data["selected_rows"]
-
+        st.session_state.lend_selected_rows = data["selected_rows"]
+        print("SELECTED_ROW",data["selected_rows"])
