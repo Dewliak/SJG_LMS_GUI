@@ -98,7 +98,7 @@ if 'book_sheet' not in st.session_state or 'lend_sheet' not in st.session_state 
     load_lent_data()
 
 
-button_col1,button_col2,button_col3,button_col4 = st.columns([2,2,4,6])
+button_col1,button_col2,button_col3,button_col4 = st.columns([3,2,4,6])
 
 
 def give_back_book(lent_id: int):
@@ -124,9 +124,9 @@ def give_back_book(lent_id: int):
         print(st.session_state['lend_sheet'])
         update_sheet(st.session_state["workbook"],st.session_state["book_sheet"])
         update_sheet(st.session_state["lend_workbook"], st.session_state["lend_sheet"])
-        st.success("Sikeres ovlt a visszadas")
+        st.success("Sikeres volt a visszajuttatás.")
     else:
-        st.error("No book found")
+        st.error("A könyvet nem találtuk")
 
 
 with st.container():
