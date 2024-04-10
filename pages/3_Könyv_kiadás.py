@@ -23,7 +23,7 @@ function(params) {
 """)
 
 def check_if_book_at_disposal(book_df, lend_df, lend_sheet):
-
+    print("BOOKDF",book_df)
     for id, record in lend_df.iterrows():
         if len(book_df.loc[book_df["ID"] == record["BOOK_ID"]]) == 0 and record["STATUS"] != "Book not at disposal":
             lend_df.loc[lend_df["ID"] == record["ID"], 'STATUS'] = 'Book not at disposal'
@@ -80,7 +80,9 @@ def load_lent_data():
         lend_sheet = check_if_book_at_disposal(book_sheet, lend_sheet, lend_workbook)
 
     book_sheet, workbook, lend_sheet, lend_workbook = load_sheets()
-
+    if len(lend_sheet) == 0:
+        lend_sheet = pd.DataFrame(columns=["ID", "NAME", "CLASS", "EMAIL","BOOK_ID","END_DATE","STATUS"])
+        update_sheet(lend_workbook,lend_sheet)
     st.session_state["book_sheet"] = book_sheet
     st.session_state["lend_sheet"] = lend_sheet
     st.session_state["workbook"] = workbook
@@ -98,7 +100,7 @@ if 'book_sheet' not in st.session_state or 'lend_sheet' not in st.session_state 
     load_lent_data()
 
 
-button_col1,button_col2,button_col3,button_col4 = st.columns([3,2,4,6])
+button_col1,button_col2,button_col3,button_col4 = st.columns([2,2,4,6])
 
 
 def give_back_book(lent_id: int):
@@ -124,9 +126,10 @@ def give_back_book(lent_id: int):
         print(st.session_state['lend_sheet'])
         update_sheet(st.session_state["workbook"],st.session_state["book_sheet"])
         update_sheet(st.session_state["lend_workbook"], st.session_state["lend_sheet"])
-        st.success("Sikeres volt a visszajuttatás.")
+        st.success("Sikeres ovlt a visszadas")
+        return st.session_state['lend_sheet']
     else:
-        st.error("A könyvet nem találtuk")
+        st.error("No book found")
 
 
 with st.container():
@@ -139,8 +142,8 @@ with st.container():
 
                 lent_id = tuple(selected_rows["ID"].values())[0]
 
-                if give_back_book(lent_id):
-                    load_lent_data()
+                st.session_state["lend_sheet"] = give_back_book(lent_id)
+
 
     with button_col2:
         if st.button("Újratölt"):

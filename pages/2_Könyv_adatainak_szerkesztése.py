@@ -80,19 +80,19 @@ if len(st.session_state["book_sheet"]):
     if modal.is_open():
         with modal.container():
             if st.button("Igen"):
-                print("______________________-")
-                print("SS",st.session_state["selected_rows"])
+                        print("______________________-")
+                        print("SS",st.session_state["selected_rows"])
 
-                id = st.session_state["selected_rows"][0]["ID"]
+                        id = st.session_state["selected_rows"]["ID"]
+                        print("ID",id.array[0])
+                        index = st.session_state['book_sheet'][st.session_state['book_sheet']['ID'] == id.array[0]].index
+                        print("DEBUG:",id,index)
+                        st.session_state['book_sheet'] = st.session_state['book_sheet'].drop(index)
+                        update_sheet(st.session_state["workbook"], st.session_state["book_sheet"])
 
-                index = st.session_state['book_sheet'][st.session_state['book_sheet']['ID'] == id].index
+                        st.session_state["lend_sheet"] = check_if_book_at_disposal(st.session_state["book_sheet"],st.session_state["lend_sheet"],st.session_state["lend_workbook"])
 
-                st.session_state['book_sheet'] = st.session_state['book_sheet'].drop(index)
-                update_sheet(st.session_state["workbook"], st.session_state["book_sheet"])
-
-                st.session_state["lend_sheet"] = check_if_book_at_disposal(st.session_state["book_sheet"],st.session_state["lend_sheet"],st.session_state["lend_workbook"])
-
-                modal.close()
+                        modal.close()
 
             if st.button("NEM"):
                 modal.close(())
