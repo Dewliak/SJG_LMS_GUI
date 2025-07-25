@@ -1,13 +1,13 @@
 
 import pandas as pd
 import streamlit as st
-from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, ColumnsAutoSizeMode
-from modal import Modal
-from datetime import datetime, date
+from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode
+from legacy.modal import Modal
+
 #import harperdb
 st.set_page_config(layout="wide")
 
-from load_save_data import add_book, update_sheet, load_sheets
+from legacy.load_save_data import update_sheet, load_sheets
 
 
 def check_if_book_at_disposal(book_df, lend_df, lend_sheet):

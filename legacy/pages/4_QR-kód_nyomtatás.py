@@ -1,9 +1,8 @@
 import pandas as pd
 import streamlit as st
-from load_save_data import add_book, update_sheet, load_sheets
-from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, ColumnsAutoSizeMode,JsCode
+from legacy.load_save_data import load_sheets
 
-from qrtoimg import Book, generate_print_sheet
+from legacy.qrtoimg import Book, generate_print_sheet
 
 st.set_page_config(
     page_title="Könyvek"
