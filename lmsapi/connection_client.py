@@ -3,6 +3,8 @@ import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
 
+from .context_api import Context
+
 import hashlib
 
 import pandas as pd
@@ -14,21 +16,21 @@ from base_logger import logger
 
 class ConnectionClient:
 
-    def __init__(self,credentials_file: str = "credentials.json", secrets_file: str = "secrets.json" ) -> None:
+    def __init__(self,context:Context) -> None:
 
         #Login with Oauth to the Google api
         scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-        creds = Credentials.from_service_account_file(credentials_file, scopes=scopes)
+        creds = Credentials.from_service_account_file(context.creds, scopes=scopes)
         self._client = gspread.authorize(creds)
-        logger.info(f" [Client - init] Connected to the Google API")
+        logger.info(f" [{__name__} - init] Connected to the Google API")
 
         # Load neccesary env data
-        with open(secrets_file) as f:
+        with open(context.secrets) as f:
             try:
                 self._secrets = json.load(f)
-                logger.info(f"[Client - init] Secrets file loaded")
+                logger.info(f"[{__name__} - init] Secrets file loaded")
             except:
-                logger.error(f"[Client - init] Error loading secrets file")
+                logger.error(f"[{__name__} - init] Error loading secrets file")
 
 
 

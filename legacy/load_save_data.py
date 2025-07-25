@@ -1,8 +1,9 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
-import hashlib
+from .sheet_names import SheetNames
 
+import hashlib
 import pandas as pd
 from datetime import datetime
 
@@ -27,10 +28,11 @@ def load_sheets():
     return dataframe, sheet, lend_dataframe, lend_sheet
 
 
-def add_book(sheet, dataframe, author, title, isbn='', quantity = 1):
+def add_book(sheet_name: SheetName, dataframe, author, title, isbn='', quantity = 1):
     """
     Updates the dataframe, and updates the google sheet
     """
+    dataframe = self.sheets[sheet_name.value]
     t = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     print(t)
     used = 0
@@ -44,7 +46,7 @@ def add_book(sheet, dataframe, author, title, isbn='', quantity = 1):
 
 
     #    dataframe.loc[len(dataframe.index)] = serialized_book
-    update_sheet(sheet,dataframe)
+    update_sheet(sheet_name,dataframe)
 
     return dataframe
 
