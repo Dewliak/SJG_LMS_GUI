@@ -1,6 +1,6 @@
 [books db]
-    [] create db
-    [] create fields
+    [x] create db
+    [x] create fields
  
 
 [lend db]
