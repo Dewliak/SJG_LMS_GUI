@@ -1,23 +1,23 @@
+import multiprocessing
+multiprocessing.set_start_method("spawn", force=True)
+
 import pandas as pd
 
-
+from gui.services import DataClientSingleton
 from lmsapi import DataClient, SheetName, Book
 from faker import Faker
 from random import randint
 
 from lmsapi.book import serialize_book
 
-if __name__ == "__main__":
+from nicegui import ui
+from gui.pages import main_page, crud_page
 
-    fake = Faker()
+if __name__ in {"__main__", "__mp_main__"}:
 
-    api_client = DataClient()
+    client = DataClientSingleton.get_instance()
 
-    #api_client.add_book(SheetName.BOOK, fake.name(), "test name", "test-" + randint(100,1000),randint(1,20))
+    #main_page.main_page()
+    crud_page.crud_page()
 
-    df = api_client.sheets[SheetName.BOOK]
-    df.set_index("ID", inplace=True)
-    df.drop("2aad1asd4ca43", inplace=True)
-    print(df)
-
-    #api_client.update_book(Book("2aad14ca43","a",'b','c',3,1))
+    ui.run(native=True)

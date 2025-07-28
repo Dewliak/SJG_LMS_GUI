@@ -25,6 +25,7 @@ class WorksheetClient(ConnectionClient):
         try:
             sheet = workbook.worksheet(sheet_name.value)
             logger.info(f"[{__name__} - init] Worksheet {sheet_name.value} found")
+            # TODO: put column datatypes
             return pd.DataFrame(sheet.get_all_records())
         except gspread.exceptions.WorksheetNotFound:
             logger.error(f"[{__name__} - init] Worksheet {sheet_name.value} not found")
@@ -44,4 +45,7 @@ class WorksheetClient(ConnectionClient):
             logger.error(f"[{__name__} - update]Worksheet {sheet_name.value} not found")
             raise gspread.exceptions.WorksheetNotFound
 
+    def update_all_sheets(self) -> None:
 
+        for sheet_name in SheetName.list():
+            self.update_sheet(sheet_name=sheet_name)
