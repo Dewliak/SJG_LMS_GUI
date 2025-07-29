@@ -77,7 +77,7 @@ def crud_page():
     ui.separator()
 
     with ui.column().classes('w-full h-screen'):
-        grid = ui.aggrid.from_pandas(client.get_sheet(SheetName.BOOK)).classes('w-full flex-1')
+        grid = ui.aggrid.from_pandas(client.sync_sheet(SheetName.BOOK)).classes('w-full flex-1')
 
 
 

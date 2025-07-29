@@ -17,10 +17,14 @@ class WorksheetClient(ConnectionClient):
         # Store the spreadsheets' id for future use
         self.spreadsheet_id = self._secrets["sheet-id"]
 
-        self.sheets = {SheetName.BOOK: self.get_sheet(sheet_name=SheetName.BOOK),
-                       SheetName.LEND: self.get_sheet(sheet_name=SheetName.LEND)}
+        self.sheets = {SheetName.BOOK.value: self.sync_sheet(sheet_name=SheetName.BOOK),
+                       SheetName.LEND.value: self.sync_sheet(sheet_name=SheetName.LEND)}
 
-    def get_sheet(self, sheet_name: SheetName) -> pd.DataFrame | None:
+
+    def get_sheet(self, sheet_name:SheetName):
+        return self.sheets[sheet_name.value]
+
+    def sync_sheet(self, sheet_name: SheetName) -> pd.DataFrame | None:
         workbook = self._client.open_by_key(self._secrets["sheet-id"])
         try:
             sheet = workbook.worksheet(sheet_name.value)
@@ -32,8 +36,8 @@ class WorksheetClient(ConnectionClient):
             return None
 
     def update_sheet(self, sheet_name:SheetName) -> None:
-        data_sheet = self.sheets[sheet_name]
-
+        data_sheet = self.sheets[sheet_name.value]
+        print("DATA:",data_sheet)
         workbook = self._client.open_by_key(self._secrets["sheet-id"])
         try:
             sheet = workbook.worksheet(sheet_name.value)

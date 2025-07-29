@@ -3,11 +3,10 @@ from google.api_core.exceptions import InvalidArgument
 from .worksheet_client import WorksheetClient
 from .context_api import Context
 from .sheet_names import SheetName
-from .book import Book, serialize_book
+from .book import Book
+from .misc import cheaphash
 
 import pandas as pd
-import hashlib
-import gspread
 from datetime import datetime
 
 from base_logger import logger
@@ -15,14 +14,12 @@ from base_logger import logger
 
 
 
-def cheaphash(string,length=10):
-    if length<len(hashlib.sha256(string).hexdigest()):
-        return hashlib.sha256(string).hexdigest()[:length]
-    else:
-        raise Exception("Length too long. Length of {y} when hash length is {x}.".format(x=str(len(hashlib.sha256(string).hexdigest())),y=length))
-
-
 class DataClient(WorksheetClient):
+    """
+    This class works with two main things:
+    1. adding/editing/deleting books
+    2. processing lend
+    """
     def __init__(self, context = Context()):
         super().__init__(context)
 
@@ -30,7 +27,7 @@ class DataClient(WorksheetClient):
         """
         Updates the dataframe, and updates the google sheet
         """
-
+        # TODO: refactor for BOOK model
         logger.info(f"[{__name__} - Add] Adding book to {sheet_name.value} ")
 
         #Generating the unique ID
@@ -47,7 +44,7 @@ class DataClient(WorksheetClient):
         logger.debug(f"[{__name__} - Add] Generated ID: {unique_id}")
 
         # Creating the entry in the DB
-        new_row = serialize_book(Book(unique_id,author,title,isbn,quantity,used))
+        new_row = Book(unique_id,author,title,isbn,quantity,used).serialize_book()
         logger.debug(f"[{__name__} - Add] New row:\n {new_row}")
 
         self.sheets[sheet_name] = pd.concat([self.sheets[sheet_name], new_row], ignore_index=True)
@@ -83,7 +80,7 @@ class DataClient(WorksheetClient):
         if self.sheets[SheetName.BOOK].loc[self.sheets[SheetName.BOOK].ID == book.book_id].empty:
             raise ValueError("No such book with this ID")
 
-        self.sheets[SheetName.BOOK].loc[self.sheets[SheetName.BOOK].ID == book.book_id] = serialize_book(book).values
+        self.sheets[SheetName.BOOK].loc[self.sheets[SheetName.BOOK].ID == book.book_id] = (book.serialize_book()).values
 
         self.update_sheet(sheet_name=SheetName.BOOK)
 
@@ -95,4 +92,11 @@ class DataClient(WorksheetClient):
         self.sheets[SheetName.BOOK].drop(book.book_id, inplace=True)
         self.sheets[SheetName.BOOK].reset_index(inplace=True)
 
+    def return_book(self):
+        raise NotImplementedError
 
+
+if __name__ == "__main__":
+    client = DataClient()
+
+    client.add_book()

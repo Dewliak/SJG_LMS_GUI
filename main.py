@@ -8,7 +8,7 @@ from lmsapi import DataClient, SheetName, Book
 from faker import Faker
 from random import randint
 
-from lmsapi.book import serialize_book
+from lmsapi.book import Book
 
 from nicegui import ui
 from gui.pages import main_page, crud_page

@@ -21,7 +21,7 @@ class Book:
         self.used = int(used)
 
 
-def serialize_book(book: Book) -> pd.DataFrame:
-    serialized_book = {"ID": [book.book_id], "AUTHOR": [book.author], "TITLE": [book.title], "ISBN": [book.isbn],
-                       "QUANTITY": [book.quantity], "USED": [book.used]}
-    return pd.DataFrame(serialized_book, columns=['ID', 'AUTHOR', 'TITLE', 'ISBN', 'QUANTITY', 'USED'])
+    def serialize_book(self) -> pd.DataFrame:
+        serialized_book = {"ID": [self.book_id], "AUTHOR": [self.author], "TITLE": [self.title], "ISBN": [self.isbn],
+                           "QUANTITY": [self.quantity], "USED": [self.used]}
+        return pd.DataFrame(serialized_book, columns=['ID', 'AUTHOR', 'TITLE', 'ISBN', 'QUANTITY', 'USED'])
