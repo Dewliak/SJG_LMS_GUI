@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 import pandas as pd
+from datetime import datetime
+from .misc import cheaphash
 
+from base_logger import logger
 
 @dataclass
 class Book:
@@ -22,6 +25,16 @@ class Book:
 
 
     def serialize_book(self) -> pd.DataFrame:
+        time_now = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+
+        try:
+            # TODO CHECK FOR UNIQUITY
+            self.book_id = cheaphash(str(time_now + self.author + self.title + str(self.isbn)).encode('utf-8'))
+            logger.debug(f"[{__name__} - Add] Generated ID: {self.book_id}")
+        except Exception as e:
+            logger.error(f"[{__name__} - Add] Error adding book, cheaphash error: \n + {e} ")
+
         serialized_book = {"ID": [self.book_id], "AUTHOR": [self.author], "TITLE": [self.title], "ISBN": [self.isbn],
                            "QUANTITY": [self.quantity], "USED": [self.used]}
+
         return pd.DataFrame(serialized_book, columns=['ID', 'AUTHOR', 'TITLE', 'ISBN', 'QUANTITY', 'USED'])

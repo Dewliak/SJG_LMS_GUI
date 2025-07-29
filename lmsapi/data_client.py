@@ -1,5 +1,6 @@
 from google.api_core.exceptions import InvalidArgument
 
+from .lend_model import LendModel
 from .worksheet_client import WorksheetClient
 from .context_api import Context
 from .sheet_names import SheetName
@@ -23,35 +24,27 @@ class DataClient(WorksheetClient):
     def __init__(self, context = Context()):
         super().__init__(context)
 
-    def add_book(self,sheet_name: SheetName, author, title, isbn='', quantity=1) -> bool:
+    def add_book(self, author, title, isbn='', quantity=1, used = 0) -> bool:
         """
         Updates the dataframe, and updates the google sheet
         """
-        # TODO: refactor for BOOK model
-        logger.info(f"[{__name__} - Add] Adding book to {sheet_name.value} ")
+        logger.info(f"[{__name__} - Add] Adding book to {SheetName.BOOK.value} ")
 
         #Generating the unique ID
-        t = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-        used = 0
 
-        try:
-            # TODO CHECK FOR UNIQUITY
-            unique_id = cheaphash(str(t + author + title + str(isbn)).encode('utf-8'))
-        except Exception as e:
-            logger.error(f"[{__name__} - Add] Error adding book, cheaphash error: \n + {e} ")
-            return False
 
-        logger.debug(f"[{__name__} - Add] Generated ID: {unique_id}")
+
 
         # Creating the entry in the DB
-        new_row = Book(unique_id,author,title,isbn,quantity,used).serialize_book()
+        new_row = Book("",author,title,isbn,quantity,used).serialize_book()
+
         logger.debug(f"[{__name__} - Add] New row:\n {new_row}")
 
-        self.sheets[sheet_name] = pd.concat([self.sheets[sheet_name], new_row], ignore_index=True)
+        self.sheets[SheetName.BOOK.value] = pd.concat([self.sheets[SheetName.BOOK.value], new_row], ignore_index=True)
 
         # UPDATING
         try:
-            self.update_sheet(sheet_name)
+            self.update_sheet(SheetName.BOOK)
         except Exception as e:
             logger.error(f"[{__name__} - Add] Error adding book, update error: \n + {e} ")
             return False
@@ -70,17 +63,17 @@ class DataClient(WorksheetClient):
         # find the row in the dataframe
         # update the row
 
-
+        book_df = self.get_sheet(SheetName.BOOK)
 
         if book.book_id == "":
             raise InvalidArgument("Book id should not be empty")
 
         # check if id exists
 
-        if self.sheets[SheetName.BOOK].loc[self.sheets[SheetName.BOOK].ID == book.book_id].empty:
+        if book_df.loc[book_df.ID == book.book_id].empty:
             raise ValueError("No such book with this ID")
 
-        self.sheets[SheetName.BOOK].loc[self.sheets[SheetName.BOOK].ID == book.book_id] = (book.serialize_book()).values
+        self.sheets[SheetName.BOOK].loc[book_df.ID == book.book_id] = (book.serialize_book()).values
 
         self.update_sheet(sheet_name=SheetName.BOOK)
 
@@ -88,15 +81,39 @@ class DataClient(WorksheetClient):
 
     def remove_book(self,book:Book):
         # might raise keyerror
-        self.sheets[SheetName.BOOK].set_index("ID", inplace=True)
-        self.sheets[SheetName.BOOK].drop(book.book_id, inplace=True)
-        self.sheets[SheetName.BOOK].reset_index(inplace=True)
+        book_df = self.get_sheet(SheetName.BOOK)
 
-    def return_book(self):
-        raise NotImplementedError
+        book_df.set_index("ID", inplace=True)
+        book_df.drop(book.book_id, inplace=True)
+        book_df.reset_index(inplace=True)
+
+        self.update_sheet(SheetName.BOOK)
+
+    def return_book(self, lend_model: LendModel):
+
+        # 1. find book if exists in the db
+        # 2. lower the quantity max(0, current - 1)
+        # 3. delete from the lend db
+
+        book_df = self.get_sheet(SheetName.BOOK)
+        lend_df = self.get_sheet(SheetName.LEND)
+        book_row = book_df.loc[book_df['ID'] == lend_model.book_id]
+
+        logger.debug(f"[{__name__} - BOOK_RETURN] BOOK_ROW: {book_row}")
+
+        if book_row.empty:
+            logger.error(f"[{__name__} - BOOK_RETURN] Book not found")
+            raise InvalidArgument("Book not found")
 
 
-if __name__ == "__main__":
-    client = DataClient()
+        book_df.loc[book_df["ID"] == lend_model.book_id, "USED"] -= 1
 
-    client.add_book()
+        lend_df.set_index("ID", inplace=True)
+        lend_df.drop(lend_model.id, inplace=True)
+        lend_df.reset_index(inplace=True)
+
+        self.update_sheet(SheetName.BOOK)
+        self.update_sheet(SheetName.LEND)
+
+        logger.info(f"[{__name__} - BOOK_RETURN] Book return was successful!")
+

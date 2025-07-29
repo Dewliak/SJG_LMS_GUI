@@ -3,7 +3,7 @@ from datetime import datetime
 
 import pandas
 
-from misc import cheaphash
+from .misc import cheaphash
 import pandas as pd
 
 @dataclass
@@ -17,7 +17,7 @@ class LendModel:
     end_date: datetime
     status :str
 
-    def __init__(self, name, class_number, email, book_id, start_date, end_date):
+    def __init__(self, name="", class_number="", email="", book_id="", start_date=datetime.now(), end_date=datetime.now()):
         self.id = ""
         self.name = name
         self.class_number = class_number
