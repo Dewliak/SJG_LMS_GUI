@@ -10,12 +10,13 @@ from .context_api import Context
 
 
 class ConnectionClient:
+    SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
     def __init__(self,context:Context) -> None:
 
         #Login with Oauth to the Google api
-        scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-        creds = Credentials.from_service_account_file(context.creds, scopes=scopes)
+
+        creds = Credentials.from_service_account_file(context.creds, scopes=ConnectionClient.SCOPES)
         self._client = gspread.authorize(creds)
         logger.info(f" [{__name__} - init] Connected to the Google API")
 
