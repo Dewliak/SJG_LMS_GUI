@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>lmsapi API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>lmsapi</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="lmsapi.book" href="book.html">lmsapi.book</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="lmsapi.connection_client" href="connection_client.html">lmsapi.connection_client</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="lmsapi.context_api" href="context_api.html">lmsapi.context_api</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="lmsapi.data_client" href="data_client.html">lmsapi.data_client</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="lmsapi.lend_client" href="lend_client.html">lmsapi.lend_client</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="lmsapi.lend_model" href="lend_model.html">lmsapi.lend_model</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="lmsapi.misc" href="misc.html">lmsapi.misc</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="lmsapi.sheet_names" href="sheet_names.html">lmsapi.sheet_names</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="lmsapi.worksheet_client" href="worksheet_client.html">lmsapi.worksheet_client</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="lmsapi.Book"><code class="flex name class">
+<span>class <span class="ident">Book</span></span>
+<span>(</span><span>book_id: str = '',<br>author: str = '',<br>title: str = '',<br>isbn: str = '',<br>quantity: int = 0,<br>used: int = 0)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class Book:
+    book_id: str
+    title: str
+    author: str
+    title: str
+    isbn: str
+    quantity: int
+    used: int
+
+    def __init__(
+        self,
+        book_id: str = &#34;&#34;,
+        author: str = &#34;&#34;,
+        title: str = &#34;&#34;,
+        isbn: str = &#34;&#34;,
+        quantity: int = 0,
+        used: int = 0,
+    ):
+        self.book_id = str(book_id)
+        self.title = str(title)
+        self.author = str(author)
+        self.isbn = str(isbn)
+        self.quantity = int(quantity)
+        self.used = int(used)
+
+    def serialize_book(self) -&gt; pd.DataFrame:
+        time_now = datetime.now().strftime(&#34;%Y-%m-%d-%H-%M-%S&#34;)
+
+        try:
+            # TODO CHECK FOR UNIQUITY
+            self.book_id = cheaphash(
+                str(time_now + self.author + self.title + str(self.isbn)).encode(
+                    &#34;utf-8&#34;
+                )
+            )
+            logger.debug(f&#34;[{__name__} - Add] Generated ID: {self.book_id}&#34;)
+        except Exception as e:
+            logger.error(
+                f&#34;[{__name__} - Add] Error adding book, cheaphash error: \n + {e} &#34;
+            )
+
+        serialized_book = {
+            &#34;ID&#34;: [self.book_id],
+            &#34;AUTHOR&#34;: [self.author],
+            &#34;TITLE&#34;: [self.title],
+            &#34;ISBN&#34;: [self.isbn],
+            &#34;QUANTITY&#34;: [self.quantity],
+            &#34;USED&#34;: [self.used],
+        }
+
+        return pd.DataFrame(
+            serialized_book,
+            columns=[&#34;ID&#34;, &#34;AUTHOR&#34;, &#34;TITLE&#34;, &#34;ISBN&#34;, &#34;QUANTITY&#34;, &#34;USED&#34;],
+        )</code></pre>
+</details>
+<div class="desc"><p>Book(book_id: str = '', author: str = '', title: str = '', isbn: str = '', quantity: int = 0, used: int = 0)</p></div>
+<h3>Instance variables</h3>
+<dl>
+<dt id="lmsapi.Book.author"><code class="name">var <span class="ident">author</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.Book.book_id"><code class="name">var <span class="ident">book_id</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.Book.isbn"><code class="name">var <span class="ident">isbn</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.Book.quantity"><code class="name">var <span class="ident">quantity</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.Book.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.Book.used"><code class="name">var <span class="ident">used</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="lmsapi.Book.serialize_book"><code class="name flex">
+<span>def <span class="ident">serialize_book</span></span>(<span>self) ‑> pandas.core.frame.DataFrame</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def serialize_book(self) -&gt; pd.DataFrame:
+    time_now = datetime.now().strftime(&#34;%Y-%m-%d-%H-%M-%S&#34;)
+
+    try:
+        # TODO CHECK FOR UNIQUITY
+        self.book_id = cheaphash(
+            str(time_now + self.author + self.title + str(self.isbn)).encode(
+                &#34;utf-8&#34;
+            )
+        )
+        logger.debug(f&#34;[{__name__} - Add] Generated ID: {self.book_id}&#34;)
+    except Exception as e:
+        logger.error(
+            f&#34;[{__name__} - Add] Error adding book, cheaphash error: \n + {e} &#34;
+        )
+
+    serialized_book = {
+        &#34;ID&#34;: [self.book_id],
+        &#34;AUTHOR&#34;: [self.author],
+        &#34;TITLE&#34;: [self.title],
+        &#34;ISBN&#34;: [self.isbn],
+        &#34;QUANTITY&#34;: [self.quantity],
+        &#34;USED&#34;: [self.used],
+    }
+
+    return pd.DataFrame(
+        serialized_book,
+        columns=[&#34;ID&#34;, &#34;AUTHOR&#34;, &#34;TITLE&#34;, &#34;ISBN&#34;, &#34;QUANTITY&#34;, &#34;USED&#34;],
+    )</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="lmsapi.ConnectionClient"><code class="flex name class">
+<span>class <span class="ident">ConnectionClient</span></span>
+<span>(</span><span>context: <a title="lmsapi.context_api.Context" href="context_api.html#lmsapi.context_api.Context">Context</a>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ConnectionClient:
+    SCOPES = [&#34;https://www.googleapis.com/auth/spreadsheets&#34;]
+
+    def __init__(self, context: Context) -&gt; None:
+        # Login with Oauth to the Google api
+
+        creds = Credentials.from_service_account_file(
+            context.creds, scopes=ConnectionClient.SCOPES
+        )
+        self._client = gspread.authorize(creds)
+        logger.info(f&#34; [{__name__} - init] Connected to the Google API&#34;)
+
+        # Load neccesary env data
+        with open(context.secrets) as f:
+            try:
+                self._secrets = json.load(f)
+                logger.info(f&#34;[{__name__} - init] Secrets file loaded&#34;)
+            except:
+                logger.error(f&#34;[{__name__} - init] Error loading secrets file&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="lmsapi.worksheet_client.WorksheetClient" href="worksheet_client.html#lmsapi.worksheet_client.WorksheetClient">WorksheetClient</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="lmsapi.ConnectionClient.SCOPES"><code class="name">var <span class="ident">SCOPES</span></code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="lmsapi.Context"><code class="flex name class">
+<span>class <span class="ident">Context</span></span>
+<span>(</span><span>creds: str = 'credentials.json', secrets: str = 'secrets.json')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Context:
+    def __init__(self, creds: str = &#34;credentials.json&#34;, secrets: str = &#34;secrets.json&#34;):
+        self.creds = creds
+        self.secrets = secrets</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="lmsapi.DataClient"><code class="flex name class">
+<span>class <span class="ident">DataClient</span></span>
+<span>(</span><span>context=&lt;lmsapi.context_api.Context object&gt;)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DataClient(WorksheetClient):
+    &#34;&#34;&#34;
+    This class works with two main things:
+    1. adding/editing/deleting books
+    2. processing lend
+    &#34;&#34;&#34;
+
+    def __init__(self, context=Context()):
+        super().__init__(context)
+
+    def add_book(self, author, title, isbn=&#34;&#34;, quantity=1, used=0) -&gt; bool:
+        &#34;&#34;&#34;
+        Updates the dataframe, and updates the google sheet
+        &#34;&#34;&#34;
+        logger.info(f&#34;[{__name__} - Add] Adding book to {SheetName.BOOK.value} &#34;)
+
+        # Generating the unique ID
+
+        # Creating the entry in the DB
+        new_row = Book(&#34;&#34;, author, title, isbn, quantity, used).serialize_book()
+
+        logger.debug(f&#34;[{__name__} - Add] New row:\n {new_row}&#34;)
+
+        self.sheets[SheetName.BOOK.value] = pd.concat(
+            [self.sheets[SheetName.BOOK.value], new_row], ignore_index=True
+        )
+
+        # UPDATING
+        try:
+            self.update_sheet(SheetName.BOOK)
+        except Exception as e:
+            logger.error(
+                f&#34;[{__name__} - Add] Error adding book, update error: \n + {e} &#34;
+            )
+            return False
+
+        logger.info(f&#34;[{__name__} - Add] Book addition finished successfully!&#34;)
+        return True
+
+    def update_book(self, book: Book):
+        &#34;&#34;&#34;
+        throwsa Invalid argument
+        thows Value error
+
+        TODO: logging
+        TODO:
+        &#34;&#34;&#34;
+        # find the row in the dataframe
+        # update the row
+
+        book_df = self.get_sheet(SheetName.BOOK)
+
+        if book.book_id == &#34;&#34;:
+            raise InvalidArgument(&#34;Book id should not be empty&#34;)
+
+        # check if id exists
+
+        if book_df.loc[book_df.ID == book.book_id].empty:
+            raise ValueError(&#34;No such book with this ID&#34;)
+
+        self.sheets[SheetName.BOOK].loc[book_df.ID == book.book_id] = (
+            book.serialize_book()
+        ).values
+
+        self.update_sheet(sheet_name=SheetName.BOOK)
+
+        logger.info(
+            f&#34;[{__name__} - Update] Book - id: {book.book_id} - updated successfully!&#34;
+        )
+
+    def remove_book(self, book: Book):
+        # might raise keyerror
+        book_df = self.get_sheet(SheetName.BOOK)
+
+        book_df.set_index(&#34;ID&#34;, inplace=True)
+        book_df.drop(book.book_id, inplace=True)
+        book_df.reset_index(inplace=True)
+
+        self.update_sheet(SheetName.BOOK)
+
+    def return_book(self, lend_model: LendModel):
+        # 1. find book if exists in the db
+        # 2. lower the quantity max(0, current - 1)
+        # 3. delete from the lend db
+
+        book_df = self.get_sheet(SheetName.BOOK)
+        lend_df = self.get_sheet(SheetName.LEND)
+        book_row = book_df.loc[book_df[&#34;ID&#34;] == lend_model.book_id]
+
+        logger.debug(f&#34;[{__name__} - BOOK_RETURN] BOOK_ROW: {book_row}&#34;)
+
+        if book_row.empty:
+            logger.error(f&#34;[{__name__} - BOOK_RETURN] Book not found&#34;)
+            raise InvalidArgument(&#34;Book not found&#34;)
+
+        book_df.loc[book_df[&#34;ID&#34;] == lend_model.book_id, &#34;USED&#34;] -= 1
+
+        lend_df.set_index(&#34;ID&#34;, inplace=True)
+        lend_df.drop(lend_model.id, inplace=True)
+        lend_df.reset_index(inplace=True)
+
+        self.update_sheet(SheetName.BOOK)
+        self.update_sheet(SheetName.LEND)
+
+        logger.info(f&#34;[{__name__} - BOOK_RETURN] Book return was successful!&#34;)</code></pre>
+</details>
+<div class="desc"><p>This class works with two main things:
+1. adding/editing/deleting books
+2. processing lend</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="lmsapi.worksheet_client.WorksheetClient" href="worksheet_client.html#lmsapi.worksheet_client.WorksheetClient">WorksheetClient</a></li>
+<li><a title="lmsapi.connection_client.ConnectionClient" href="connection_client.html#lmsapi.connection_client.ConnectionClient">ConnectionClient</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="lmsapi.DataClient.add_book"><code class="name flex">
+<span>def <span class="ident">add_book</span></span>(<span>self, author, title, isbn='', quantity=1, used=0) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_book(self, author, title, isbn=&#34;&#34;, quantity=1, used=0) -&gt; bool:
+    &#34;&#34;&#34;
+    Updates the dataframe, and updates the google sheet
+    &#34;&#34;&#34;
+    logger.info(f&#34;[{__name__} - Add] Adding book to {SheetName.BOOK.value} &#34;)
+
+    # Generating the unique ID
+
+    # Creating the entry in the DB
+    new_row = Book(&#34;&#34;, author, title, isbn, quantity, used).serialize_book()
+
+    logger.debug(f&#34;[{__name__} - Add] New row:\n {new_row}&#34;)
+
+    self.sheets[SheetName.BOOK.value] = pd.concat(
+        [self.sheets[SheetName.BOOK.value], new_row], ignore_index=True
+    )
+
+    # UPDATING
+    try:
+        self.update_sheet(SheetName.BOOK)
+    except Exception as e:
+        logger.error(
+            f&#34;[{__name__} - Add] Error adding book, update error: \n + {e} &#34;
+        )
+        return False
+
+    logger.info(f&#34;[{__name__} - Add] Book addition finished successfully!&#34;)
+    return True</code></pre>
+</details>
+<div class="desc"><p>Updates the dataframe, and updates the google sheet</p></div>
+</dd>
+<dt id="lmsapi.DataClient.remove_book"><code class="name flex">
+<span>def <span class="ident">remove_book</span></span>(<span>self,<br>book: <a title="lmsapi.book.Book" href="book.html#lmsapi.book.Book">Book</a>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_book(self, book: Book):
+    # might raise keyerror
+    book_df = self.get_sheet(SheetName.BOOK)
+
+    book_df.set_index(&#34;ID&#34;, inplace=True)
+    book_df.drop(book.book_id, inplace=True)
+    book_df.reset_index(inplace=True)
+
+    self.update_sheet(SheetName.BOOK)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="lmsapi.DataClient.return_book"><code class="name flex">
+<span>def <span class="ident">return_book</span></span>(<span>self,<br>lend_model: <a title="lmsapi.lend_model.LendModel" href="lend_model.html#lmsapi.lend_model.LendModel">LendModel</a>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def return_book(self, lend_model: LendModel):
+    # 1. find book if exists in the db
+    # 2. lower the quantity max(0, current - 1)
+    # 3. delete from the lend db
+
+    book_df = self.get_sheet(SheetName.BOOK)
+    lend_df = self.get_sheet(SheetName.LEND)
+    book_row = book_df.loc[book_df[&#34;ID&#34;] == lend_model.book_id]
+
+    logger.debug(f&#34;[{__name__} - BOOK_RETURN] BOOK_ROW: {book_row}&#34;)
+
+    if book_row.empty:
+        logger.error(f&#34;[{__name__} - BOOK_RETURN] Book not found&#34;)
+        raise InvalidArgument(&#34;Book not found&#34;)
+
+    book_df.loc[book_df[&#34;ID&#34;] == lend_model.book_id, &#34;USED&#34;] -= 1
+
+    lend_df.set_index(&#34;ID&#34;, inplace=True)
+    lend_df.drop(lend_model.id, inplace=True)
+    lend_df.reset_index(inplace=True)
+
+    self.update_sheet(SheetName.BOOK)
+    self.update_sheet(SheetName.LEND)
+
+    logger.info(f&#34;[{__name__} - BOOK_RETURN] Book return was successful!&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="lmsapi.DataClient.update_book"><code class="name flex">
+<span>def <span class="ident">update_book</span></span>(<span>self,<br>book: <a title="lmsapi.book.Book" href="book.html#lmsapi.book.Book">Book</a>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_book(self, book: Book):
+    &#34;&#34;&#34;
+    throwsa Invalid argument
+    thows Value error
+
+    TODO: logging
+    TODO:
+    &#34;&#34;&#34;
+    # find the row in the dataframe
+    # update the row
+
+    book_df = self.get_sheet(SheetName.BOOK)
+
+    if book.book_id == &#34;&#34;:
+        raise InvalidArgument(&#34;Book id should not be empty&#34;)
+
+    # check if id exists
+
+    if book_df.loc[book_df.ID == book.book_id].empty:
+        raise ValueError(&#34;No such book with this ID&#34;)
+
+    self.sheets[SheetName.BOOK].loc[book_df.ID == book.book_id] = (
+        book.serialize_book()
+    ).values
+
+    self.update_sheet(sheet_name=SheetName.BOOK)
+
+    logger.info(
+        f&#34;[{__name__} - Update] Book - id: {book.book_id} - updated successfully!&#34;
+    )</code></pre>
+</details>
+<div class="desc"><p>throwsa Invalid argument
+thows Value error</p>
+<p>TODO: logging
+TODO:</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="lmsapi.worksheet_client.WorksheetClient" href="worksheet_client.html#lmsapi.worksheet_client.WorksheetClient">WorksheetClient</a></b></code>:
+<ul class="hlist">
+<li><code><a title="lmsapi.worksheet_client.WorksheetClient.SCOPES" href="connection_client.html#lmsapi.connection_client.ConnectionClient.SCOPES">SCOPES</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="lmsapi.LendClient"><code class="flex name class">
+<span>class <span class="ident">LendClient</span></span>
+<span>(</span><span>context=&lt;lmsapi.context_api.Context object&gt;)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LendClient(WorksheetClient):
+    def __init__(self, context=Context()):
+        super().__init__(context)
+
+    def lend_book(self, lend_model: LendModel):
+        self.sync_sheet(SheetName.LEND)
+        book_df = self.get_sheet(SheetName.BOOK)
+        lend_df = self.get_sheet(SheetName.LEND)
+
+        book_df.loc[book_df[&#34;ID&#34;] == lend_model.book_id, &#34;USED&#34;] += (
+            1  # = self.sheets[SheetName.BOOK.value].loc[filter, &#34;USED&#34;] +
+        )
+        serialized_book = lend_model.serialize()
+
+        if lend_df.empty:
+            self.sheets[SheetName.LEND.value] = serialized_book
+        else:
+            self.sheets[SheetName.LEND.value] = pd.concat(
+                [self.sheets[SheetName.LEND.value], serialized_book], ignore_index=True
+            )
+
+        self.update_sheet(SheetName.LEND)</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="lmsapi.worksheet_client.WorksheetClient" href="worksheet_client.html#lmsapi.worksheet_client.WorksheetClient">WorksheetClient</a></li>
+<li><a title="lmsapi.connection_client.ConnectionClient" href="connection_client.html#lmsapi.connection_client.ConnectionClient">ConnectionClient</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="lmsapi.LendClient.lend_book"><code class="name flex">
+<span>def <span class="ident">lend_book</span></span>(<span>self,<br>lend_model: <a title="lmsapi.lend_model.LendModel" href="lend_model.html#lmsapi.lend_model.LendModel">LendModel</a>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def lend_book(self, lend_model: LendModel):
+    self.sync_sheet(SheetName.LEND)
+    book_df = self.get_sheet(SheetName.BOOK)
+    lend_df = self.get_sheet(SheetName.LEND)
+
+    book_df.loc[book_df[&#34;ID&#34;] == lend_model.book_id, &#34;USED&#34;] += (
+        1  # = self.sheets[SheetName.BOOK.value].loc[filter, &#34;USED&#34;] +
+    )
+    serialized_book = lend_model.serialize()
+
+    if lend_df.empty:
+        self.sheets[SheetName.LEND.value] = serialized_book
+    else:
+        self.sheets[SheetName.LEND.value] = pd.concat(
+            [self.sheets[SheetName.LEND.value], serialized_book], ignore_index=True
+        )
+
+    self.update_sheet(SheetName.LEND)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="lmsapi.worksheet_client.WorksheetClient" href="worksheet_client.html#lmsapi.worksheet_client.WorksheetClient">WorksheetClient</a></b></code>:
+<ul class="hlist">
+<li><code><a title="lmsapi.worksheet_client.WorksheetClient.SCOPES" href="connection_client.html#lmsapi.connection_client.ConnectionClient.SCOPES">SCOPES</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="lmsapi.LendModel"><code class="flex name class">
+<span>class <span class="ident">LendModel</span></span>
+<span>(</span><span>name='',<br>class_number='',<br>email='',<br>book_id='',<br>start_date=datetime.datetime(2025, 9, 10, 14, 56, 55, 979978),<br>end_date=datetime.datetime(2025, 9, 10, 14, 56, 55, 979981))</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class LendModel:
+    id: str
+    name: str
+    class_number: str
+    email: str
+    book_id: str
+    start_date: datetime
+    end_date: datetime
+    status: str
+
+    def __init__(
+        self,
+        name=&#34;&#34;,
+        class_number=&#34;&#34;,
+        email=&#34;&#34;,
+        book_id=&#34;&#34;,
+        start_date=datetime.now(),
+        end_date=datetime.now(),
+    ):
+        self.id = &#34;&#34;
+        self.name = name
+        self.class_number = class_number
+        self.email = email
+        self.book_id = book_id
+        self.start_date = start_date
+        self.end_date = end_date
+        self.status = &#34;LENT&#34;
+
+    def serialize(self) -&gt; pd.DataFrame:
+        t = datetime.now().strftime(&#34;%Y-%m-%d-%H-%M-%S&#34;)
+        code_str = str(
+            t
+            + self.name
+            + self.class_number
+            + self.email
+            + str(self.book_id)
+            + str(self.start_date)
+            + str(self.end_date)
+        )
+        unique_id = cheaphash(code_str.encode(&#34;utf-8&#34;))
+
+        return pd.DataFrame(
+            {
+                &#34;ID&#34;: [unique_id],
+                &#34;NAME&#34;: [self.name],
+                &#34;CLASS&#34;: [self.class_number],
+                &#34;EMAIL&#34;: [self.email],
+                &#34;BOOK_ID&#34;: [self.book_id],
+                &#34;START_DATE&#34;: [str(self.start_date)],
+                &#34;END_DATE&#34;: [str(self.end_date)],
+                &#34;STATUS&#34;: [self.status],
+            },
+            columns=[
+                &#34;ID&#34;,
+                &#34;NAME&#34;,
+                &#34;CLASS&#34;,
+                &#34;EMAIL&#34;,
+                &#34;BOOK_ID&#34;,
+                &#34;START_DATE&#34;,
+                &#34;END_DATE&#34;,
+                &#34;STATUS&#34;,
+            ],
+        )</code></pre>
+</details>
+<div class="desc"><p>LendModel(name='', class_number='', email='', book_id='', start_date=datetime.datetime(2025, 9, 10, 14, 56, 55, 979978), end_date=datetime.datetime(2025, 9, 10, 14, 56, 55, 979981))</p></div>
+<h3>Instance variables</h3>
+<dl>
+<dt id="lmsapi.LendModel.book_id"><code class="name">var <span class="ident">book_id</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.LendModel.class_number"><code class="name">var <span class="ident">class_number</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.LendModel.email"><code class="name">var <span class="ident">email</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.LendModel.end_date"><code class="name">var <span class="ident">end_date</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.LendModel.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.LendModel.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.LendModel.start_date"><code class="name">var <span class="ident">start_date</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.LendModel.status"><code class="name">var <span class="ident">status</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="lmsapi.LendModel.serialize"><code class="name flex">
+<span>def <span class="ident">serialize</span></span>(<span>self) ‑> pandas.core.frame.DataFrame</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def serialize(self) -&gt; pd.DataFrame:
+    t = datetime.now().strftime(&#34;%Y-%m-%d-%H-%M-%S&#34;)
+    code_str = str(
+        t
+        + self.name
+        + self.class_number
+        + self.email
+        + str(self.book_id)
+        + str(self.start_date)
+        + str(self.end_date)
+    )
+    unique_id = cheaphash(code_str.encode(&#34;utf-8&#34;))
+
+    return pd.DataFrame(
+        {
+            &#34;ID&#34;: [unique_id],
+            &#34;NAME&#34;: [self.name],
+            &#34;CLASS&#34;: [self.class_number],
+            &#34;EMAIL&#34;: [self.email],
+            &#34;BOOK_ID&#34;: [self.book_id],
+            &#34;START_DATE&#34;: [str(self.start_date)],
+            &#34;END_DATE&#34;: [str(self.end_date)],
+            &#34;STATUS&#34;: [self.status],
+        },
+        columns=[
+            &#34;ID&#34;,
+            &#34;NAME&#34;,
+            &#34;CLASS&#34;,
+            &#34;EMAIL&#34;,
+            &#34;BOOK_ID&#34;,
+            &#34;START_DATE&#34;,
+            &#34;END_DATE&#34;,
+            &#34;STATUS&#34;,
+        ],
+    )</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="lmsapi.SheetName"><code class="flex name class">
+<span>class <span class="ident">SheetName</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SheetName(Enum):
+    BOOK = &#34;BOOK_DATA&#34;
+    LEND = &#34;LEND_DATA&#34;
+
+    @classmethod
+    def list(cls):
+        return list(map(lambda s: s, cls))</code></pre>
+</details>
+<div class="desc"><p>Create a collection of name/value pairs.</p>
+<p>Example enumeration:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; class Color(Enum):
+...     RED = 1
+...     BLUE = 2
+...     GREEN = 3
+</code></pre>
+<p>Access them by:</p>
+<ul>
+<li>attribute access:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color.RED
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>value lookup:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color(1)
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>name lookup:</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Color['RED']
+<Color.RED: 1></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Enumerations can be iterated over, and know how many members they have:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; len(Color)
+3
+</code></pre>
+<pre><code class="language-python-repl">&gt;&gt;&gt; list(Color)
+[&lt;Color.RED: 1&gt;, &lt;Color.BLUE: 2&gt;, &lt;Color.GREEN: 3&gt;]
+</code></pre>
+<p>Methods can be added to enumerations, and members can have their own
+attributes &ndash; see the documentation for details.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="lmsapi.SheetName.BOOK"><code class="name">var <span class="ident">BOOK</span></code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="lmsapi.SheetName.LEND"><code class="name">var <span class="ident">LEND</span></code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="lmsapi.SheetName.list"><code class="name flex">
+<span>def <span class="ident">list</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="lmsapi.WorksheetClient"><code class="flex name class">
+<span>class <span class="ident">WorksheetClient</span></span>
+<span>(</span><span>context: <a title="lmsapi.context_api.Context" href="context_api.html#lmsapi.context_api.Context">Context</a>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class WorksheetClient(ConnectionClient):
+    def __init__(self, context: Context):
+        super().__init__(context)
+
+        # Store the spreadsheets&#39; id for future use
+        self.spreadsheet_id = self._secrets[&#34;sheet-id&#34;]
+
+        self.sheets = {
+            SheetName.BOOK.value: self.sync_sheet(sheet_name=SheetName.BOOK),
+            SheetName.LEND.value: self.sync_sheet(sheet_name=SheetName.LEND),
+        }
+
+    def get_sheet(self, sheet_name: SheetName):
+        return self.sheets[sheet_name.value]
+
+    def sync_sheet(self, sheet_name: SheetName) -&gt; pd.DataFrame | None:
+        workbook = self._client.open_by_key(self._secrets[&#34;sheet-id&#34;])
+        try:
+            sheet = workbook.worksheet(sheet_name.value)
+            logger.info(f&#34;[{__name__} - init] Worksheet {sheet_name.value} found&#34;)
+            # TODO: put column datatypes
+            return pd.DataFrame(sheet.get_all_records())
+        except gspread.exceptions.WorksheetNotFound:
+            logger.error(f&#34;[{__name__} - init] Worksheet {sheet_name.value} not found&#34;)
+            return None
+
+    def update_sheet(self, sheet_name: SheetName) -&gt; None:
+        data_sheet = self.sheets[sheet_name.value]
+        print(&#34;DATA:&#34;, data_sheet)
+        workbook = self._client.open_by_key(self._secrets[&#34;sheet-id&#34;])
+        try:
+            sheet = workbook.worksheet(sheet_name.value)
+            sheet.clear()
+            sheet.update(
+                [data_sheet.columns.values.tolist()] + data_sheet.values.tolist()
+            )
+            logger.info(f&#34;[{__name__} - update]Worksheet {sheet_name.value} updated&#34;)
+
+        except gspread.exceptions.WorksheetNotFound:
+            logger.error(f&#34;[{__name__} - update]Worksheet {sheet_name.value} not found&#34;)
+            raise gspread.exceptions.WorksheetNotFound
+
+    def update_all_sheets(self) -&gt; None:
+        for sheet_name in SheetName.list():
+            self.update_sheet(sheet_name=sheet_name)</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="lmsapi.connection_client.ConnectionClient" href="connection_client.html#lmsapi.connection_client.ConnectionClient">ConnectionClient</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="lmsapi.data_client.DataClient" href="data_client.html#lmsapi.data_client.DataClient">DataClient</a></li>
+<li><a title="lmsapi.lend_client.LendClient" href="lend_client.html#lmsapi.lend_client.LendClient">LendClient</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="lmsapi.WorksheetClient.get_sheet"><code class="name flex">
+<span>def <span class="ident">get_sheet</span></span>(<span>self,<br>sheet_name: <a title="lmsapi.sheet_names.SheetName" href="sheet_names.html#lmsapi.sheet_names.SheetName">SheetName</a>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_sheet(self, sheet_name: SheetName):
+    return self.sheets[sheet_name.value]</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="lmsapi.WorksheetClient.sync_sheet"><code class="name flex">
+<span>def <span class="ident">sync_sheet</span></span>(<span>self,<br>sheet_name: <a title="lmsapi.sheet_names.SheetName" href="sheet_names.html#lmsapi.sheet_names.SheetName">SheetName</a>) ‑> pandas.core.frame.DataFrame | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sync_sheet(self, sheet_name: SheetName) -&gt; pd.DataFrame | None:
+    workbook = self._client.open_by_key(self._secrets[&#34;sheet-id&#34;])
+    try:
+        sheet = workbook.worksheet(sheet_name.value)
+        logger.info(f&#34;[{__name__} - init] Worksheet {sheet_name.value} found&#34;)
+        # TODO: put column datatypes
+        return pd.DataFrame(sheet.get_all_records())
+    except gspread.exceptions.WorksheetNotFound:
+        logger.error(f&#34;[{__name__} - init] Worksheet {sheet_name.value} not found&#34;)
+        return None</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="lmsapi.WorksheetClient.update_all_sheets"><code class="name flex">
+<span>def <span class="ident">update_all_sheets</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_all_sheets(self) -&gt; None:
+    for sheet_name in SheetName.list():
+        self.update_sheet(sheet_name=sheet_name)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="lmsapi.WorksheetClient.update_sheet"><code class="name flex">
+<span>def <span class="ident">update_sheet</span></span>(<span>self,<br>sheet_name: <a title="lmsapi.sheet_names.SheetName" href="sheet_names.html#lmsapi.sheet_names.SheetName">SheetName</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_sheet(self, sheet_name: SheetName) -&gt; None:
+    data_sheet = self.sheets[sheet_name.value]
+    print(&#34;DATA:&#34;, data_sheet)
+    workbook = self._client.open_by_key(self._secrets[&#34;sheet-id&#34;])
+    try:
+        sheet = workbook.worksheet(sheet_name.value)
+        sheet.clear()
+        sheet.update(
+            [data_sheet.columns.values.tolist()] + data_sheet.values.tolist()
+        )
+        logger.info(f&#34;[{__name__} - update]Worksheet {sheet_name.value} updated&#34;)
+
+    except gspread.exceptions.WorksheetNotFound:
+        logger.error(f&#34;[{__name__} - update]Worksheet {sheet_name.value} not found&#34;)
+        raise gspread.exceptions.WorksheetNotFound</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="lmsapi.connection_client.ConnectionClient" href="connection_client.html#lmsapi.connection_client.ConnectionClient">ConnectionClient</a></b></code>:
+<ul class="hlist">
+<li><code><a title="lmsapi.connection_client.ConnectionClient.SCOPES" href="connection_client.html#lmsapi.connection_client.ConnectionClient.SCOPES">SCOPES</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="lmsapi.book" href="book.html">lmsapi.book</a></code></li>
+<li><code><a title="lmsapi.connection_client" href="connection_client.html">lmsapi.connection_client</a></code></li>
+<li><code><a title="lmsapi.context_api" href="context_api.html">lmsapi.context_api</a></code></li>
+<li><code><a title="lmsapi.data_client" href="data_client.html">lmsapi.data_client</a></code></li>
+<li><code><a title="lmsapi.lend_client" href="lend_client.html">lmsapi.lend_client</a></code></li>
+<li><code><a title="lmsapi.lend_model" href="lend_model.html">lmsapi.lend_model</a></code></li>
+<li><code><a title="lmsapi.misc" href="misc.html">lmsapi.misc</a></code></li>
+<li><code><a title="lmsapi.sheet_names" href="sheet_names.html">lmsapi.sheet_names</a></code></li>
+<li><code><a title="lmsapi.worksheet_client" href="worksheet_client.html">lmsapi.worksheet_client</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="lmsapi.Book" href="#lmsapi.Book">Book</a></code></h4>
+<ul class="two-column">
+<li><code><a title="lmsapi.Book.author" href="#lmsapi.Book.author">author</a></code></li>
+<li><code><a title="lmsapi.Book.book_id" href="#lmsapi.Book.book_id">book_id</a></code></li>
+<li><code><a title="lmsapi.Book.isbn" href="#lmsapi.Book.isbn">isbn</a></code></li>
+<li><code><a title="lmsapi.Book.quantity" href="#lmsapi.Book.quantity">quantity</a></code></li>
+<li><code><a title="lmsapi.Book.serialize_book" href="#lmsapi.Book.serialize_book">serialize_book</a></code></li>
+<li><code><a title="lmsapi.Book.title" href="#lmsapi.Book.title">title</a></code></li>
+<li><code><a title="lmsapi.Book.used" href="#lmsapi.Book.used">used</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="lmsapi.ConnectionClient" href="#lmsapi.ConnectionClient">ConnectionClient</a></code></h4>
+<ul class="">
+<li><code><a title="lmsapi.ConnectionClient.SCOPES" href="#lmsapi.ConnectionClient.SCOPES">SCOPES</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="lmsapi.Context" href="#lmsapi.Context">Context</a></code></h4>
+</li>
+<li>
+<h4><code><a title="lmsapi.DataClient" href="#lmsapi.DataClient">DataClient</a></code></h4>
+<ul class="">
+<li><code><a title="lmsapi.DataClient.add_book" href="#lmsapi.DataClient.add_book">add_book</a></code></li>
+<li><code><a title="lmsapi.DataClient.remove_book" href="#lmsapi.DataClient.remove_book">remove_book</a></code></li>
+<li><code><a title="lmsapi.DataClient.return_book" href="#lmsapi.DataClient.return_book">return_book</a></code></li>
+<li><code><a title="lmsapi.DataClient.update_book" href="#lmsapi.DataClient.update_book">update_book</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="lmsapi.LendClient" href="#lmsapi.LendClient">LendClient</a></code></h4>
+<ul class="">
+<li><code><a title="lmsapi.LendClient.lend_book" href="#lmsapi.LendClient.lend_book">lend_book</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="lmsapi.LendModel" href="#lmsapi.LendModel">LendModel</a></code></h4>
+<ul class="two-column">
+<li><code><a title="lmsapi.LendModel.book_id" href="#lmsapi.LendModel.book_id">book_id</a></code></li>
+<li><code><a title="lmsapi.LendModel.class_number" href="#lmsapi.LendModel.class_number">class_number</a></code></li>
+<li><code><a title="lmsapi.LendModel.email" href="#lmsapi.LendModel.email">email</a></code></li>
+<li><code><a title="lmsapi.LendModel.end_date" href="#lmsapi.LendModel.end_date">end_date</a></code></li>
+<li><code><a title="lmsapi.LendModel.id" href="#lmsapi.LendModel.id">id</a></code></li>
+<li><code><a title="lmsapi.LendModel.name" href="#lmsapi.LendModel.name">name</a></code></li>
+<li><code><a title="lmsapi.LendModel.serialize" href="#lmsapi.LendModel.serialize">serialize</a></code></li>
+<li><code><a title="lmsapi.LendModel.start_date" href="#lmsapi.LendModel.start_date">start_date</a></code></li>
+<li><code><a title="lmsapi.LendModel.status" href="#lmsapi.LendModel.status">status</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="lmsapi.SheetName" href="#lmsapi.SheetName">SheetName</a></code></h4>
+<ul class="">
+<li><code><a title="lmsapi.SheetName.BOOK" href="#lmsapi.SheetName.BOOK">BOOK</a></code></li>
+<li><code><a title="lmsapi.SheetName.LEND" href="#lmsapi.SheetName.LEND">LEND</a></code></li>
+<li><code><a title="lmsapi.SheetName.list" href="#lmsapi.SheetName.list">list</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="lmsapi.WorksheetClient" href="#lmsapi.WorksheetClient">WorksheetClient</a></code></h4>
+<ul class="">
+<li><code><a title="lmsapi.WorksheetClient.get_sheet" href="#lmsapi.WorksheetClient.get_sheet">get_sheet</a></code></li>
+<li><code><a title="lmsapi.WorksheetClient.sync_sheet" href="#lmsapi.WorksheetClient.sync_sheet">sync_sheet</a></code></li>
+<li><code><a title="lmsapi.WorksheetClient.update_all_sheets" href="#lmsapi.WorksheetClient.update_all_sheets">update_all_sheets</a></code></li>
+<li><code><a title="lmsapi.WorksheetClient.update_sheet" href="#lmsapi.WorksheetClient.update_sheet">update_sheet</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

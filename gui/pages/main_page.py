@@ -6,4 +6,3 @@ from gui.components import header
 def main_page():
     header.create_header()
     ui.label("Hello")
-

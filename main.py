@@ -20,4 +20,4 @@ if __name__ in {"__main__", "__mp_main__"}:
     #main_page.main_page()
     crud_page.crud_page()
 
-    ui.run(native=True)
+    ui.run(native=False)

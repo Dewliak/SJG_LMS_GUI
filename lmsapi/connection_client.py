@@ -7,16 +7,15 @@ from base_logger import logger
 from .context_api import Context
 
 
-
-
 class ConnectionClient:
     SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
-    def __init__(self,context:Context) -> None:
+    def __init__(self, context: Context) -> None:
+        # Login with Oauth to the Google api
 
-        #Login with Oauth to the Google api
-
-        creds = Credentials.from_service_account_file(context.creds, scopes=ConnectionClient.SCOPES)
+        creds = Credentials.from_service_account_file(
+            context.creds, scopes=ConnectionClient.SCOPES
+        )
         self._client = gspread.authorize(creds)
         logger.info(f" [{__name__} - init] Connected to the Google API")
 
@@ -27,11 +26,3 @@ class ConnectionClient:
                 logger.info(f"[{__name__} - init] Secrets file loaded")
             except:
                 logger.error(f"[{__name__} - init] Error loading secrets file")
-
-
-
-
-
-
-
-

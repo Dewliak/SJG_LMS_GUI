@@ -13,46 +13,46 @@ from datetime import datetime
 from base_logger import logger
 
 
-
-
 class DataClient(WorksheetClient):
     """
     This class works with two main things:
     1. adding/editing/deleting books
     2. processing lend
     """
-    def __init__(self, context = Context()):
+
+    def __init__(self, context=Context()):
         super().__init__(context)
 
-    def add_book(self, author, title, isbn='', quantity=1, used = 0) -> bool:
+    def add_book(self, author, title, isbn="", quantity=1, used=0) -> bool:
         """
         Updates the dataframe, and updates the google sheet
         """
         logger.info(f"[{__name__} - Add] Adding book to {SheetName.BOOK.value} ")
 
-        #Generating the unique ID
-
-
-
+        # Generating the unique ID
 
         # Creating the entry in the DB
-        new_row = Book("",author,title,isbn,quantity,used).serialize_book()
+        new_row = Book("", author, title, isbn, quantity, used).serialize_book()
 
         logger.debug(f"[{__name__} - Add] New row:\n {new_row}")
 
-        self.sheets[SheetName.BOOK.value] = pd.concat([self.sheets[SheetName.BOOK.value], new_row], ignore_index=True)
+        self.sheets[SheetName.BOOK.value] = pd.concat(
+            [self.sheets[SheetName.BOOK.value], new_row], ignore_index=True
+        )
 
         # UPDATING
         try:
             self.update_sheet(SheetName.BOOK)
         except Exception as e:
-            logger.error(f"[{__name__} - Add] Error adding book, update error: \n + {e} ")
+            logger.error(
+                f"[{__name__} - Add] Error adding book, update error: \n + {e} "
+            )
             return False
 
         logger.info(f"[{__name__} - Add] Book addition finished successfully!")
         return True
 
-    def update_book(self, book:Book):
+    def update_book(self, book: Book):
         """
         throwsa Invalid argument
         thows Value error
@@ -73,13 +73,17 @@ class DataClient(WorksheetClient):
         if book_df.loc[book_df.ID == book.book_id].empty:
             raise ValueError("No such book with this ID")
 
-        self.sheets[SheetName.BOOK].loc[book_df.ID == book.book_id] = (book.serialize_book()).values
+        self.sheets[SheetName.BOOK].loc[book_df.ID == book.book_id] = (
+            book.serialize_book()
+        ).values
 
         self.update_sheet(sheet_name=SheetName.BOOK)
 
-        logger.info(f"[{__name__} - Update] Book - id: {book.book_id} - updated successfully!")
+        logger.info(
+            f"[{__name__} - Update] Book - id: {book.book_id} - updated successfully!"
+        )
 
-    def remove_book(self,book:Book):
+    def remove_book(self, book: Book):
         # might raise keyerror
         book_df = self.get_sheet(SheetName.BOOK)
 
@@ -90,21 +94,19 @@ class DataClient(WorksheetClient):
         self.update_sheet(SheetName.BOOK)
 
     def return_book(self, lend_model: LendModel):
-
         # 1. find book if exists in the db
         # 2. lower the quantity max(0, current - 1)
         # 3. delete from the lend db
 
         book_df = self.get_sheet(SheetName.BOOK)
         lend_df = self.get_sheet(SheetName.LEND)
-        book_row = book_df.loc[book_df['ID'] == lend_model.book_id]
+        book_row = book_df.loc[book_df["ID"] == lend_model.book_id]
 
         logger.debug(f"[{__name__} - BOOK_RETURN] BOOK_ROW: {book_row}")
 
         if book_row.empty:
             logger.error(f"[{__name__} - BOOK_RETURN] Book not found")
             raise InvalidArgument("Book not found")
-
 
         book_df.loc[book_df["ID"] == lend_model.book_id, "USED"] -= 1
 
@@ -116,4 +118,3 @@ class DataClient(WorksheetClient):
         self.update_sheet(SheetName.LEND)
 
         logger.info(f"[{__name__} - BOOK_RETURN] Book return was successful!")
-

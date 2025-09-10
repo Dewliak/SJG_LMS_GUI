@@ -7,11 +7,10 @@ if "book_sheet" not in st.session_state:
     st.session_state["book_sheet"] = book_sheet
     st.session_state["lend_sheet"] = lend_sheet
     st.session_state["workbook"] = workbook
-    st.session_state['lend_workbook'] = lend_workbook
+    st.session_state["lend_workbook"] = lend_workbook
 
 
-
-with st.form("my_form",clear_on_submit=True):
+with st.form("my_form", clear_on_submit=True):
     name = st.text_input("*Cim:")
     author = st.text_input("*Author:")
     isbn = st.text_input("ISBN:")
@@ -20,8 +19,14 @@ with st.form("my_form",clear_on_submit=True):
 
     if submitted:
         if name != "" and author != "":
-
-            st.session_state['book_sheet'] = add_book(st.session_state['workbook'],st.session_state['book_sheet'], author, name, isbn, quantity)
+            st.session_state["book_sheet"] = add_book(
+                st.session_state["workbook"],
+                st.session_state["book_sheet"],
+                author,
+                name,
+                isbn,
+                quantity,
+            )
             st.success(f"A könyv sikeresen hozzá lett adva")
             time.sleep(1)
             st.rerun()

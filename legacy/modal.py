@@ -11,7 +11,6 @@ except ImportError:
 
 
 class Modal:
-
     def __init__(self, title, key, padding=20, max_width=744):
         """
         :param title: title of the Modal shown in the h1
@@ -25,14 +24,14 @@ class Modal:
         self.key = key
 
     def is_open(self):
-        return st.session_state.get(f'{self.key}-opened', False)
+        return st.session_state.get(f"{self.key}-opened", False)
 
     def open(self):
-        st.session_state[f'{self.key}-opened'] = True
+        st.session_state[f"{self.key}-opened"] = True
         rerun()
 
     def close(self, rerun_condition=True):
-        st.session_state[f'{self.key}-opened'] = False
+        st.session_state[f"{self.key}-opened"] = False
         if rerun_condition:
             rerun()
 
@@ -104,7 +103,7 @@ class Modal:
             }}
             </style>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
         with st.container():
             _container = st.container()
@@ -114,7 +113,7 @@ class Modal:
                 with title:
                     st.header(self.title)
             with close_button:
-                close_ = st.button('X', key=f'{self.key}-close')
+                close_ = st.button("X", key=f"{self.key}-close")
                 if close_:
                     self.close()
 
@@ -140,7 +139,8 @@ class Modal:
             }}
             </script>
             """,
-            height=0, width=0
+            height=0,
+            width=0,
         )
 
         with _container:
@@ -149,13 +149,11 @@ class Modal:
 
 # keep compatible with old api
 
-_default_modal = Modal('', key='streamlit-modal-default')
-
+_default_modal = Modal("", key="streamlit-modal-default")
 
 
 def open():  # pylint: disable=redefined-builtin
     return _default_modal.open()
-
 
 
 def close():

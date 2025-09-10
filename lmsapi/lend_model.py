@@ -6,6 +6,7 @@ import pandas
 from .misc import cheaphash
 import pandas as pd
 
+
 @dataclass
 class LendModel:
     id: str
@@ -15,9 +16,17 @@ class LendModel:
     book_id: str
     start_date: datetime
     end_date: datetime
-    status :str
+    status: str
 
-    def __init__(self, name="", class_number="", email="", book_id="", start_date=datetime.now(), end_date=datetime.now()):
+    def __init__(
+        self,
+        name="",
+        class_number="",
+        email="",
+        book_id="",
+        start_date=datetime.now(),
+        end_date=datetime.now(),
+    ):
         self.id = ""
         self.name = name
         self.class_number = class_number
@@ -28,16 +37,37 @@ class LendModel:
         self.status = "LENT"
 
     def serialize(self) -> pd.DataFrame:
-
         t = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-        code_str = str(t + self.name + self.class_number + self.email + str(self.book_id) + str(self.start_date) + str(self.end_date))
-        unique_id = cheaphash(code_str.encode('utf-8'))
+        code_str = str(
+            t
+            + self.name
+            + self.class_number
+            + self.email
+            + str(self.book_id)
+            + str(self.start_date)
+            + str(self.end_date)
+        )
+        unique_id = cheaphash(code_str.encode("utf-8"))
 
-        return pd.DataFrame({"ID": [unique_id],
+        return pd.DataFrame(
+            {
+                "ID": [unique_id],
                 "NAME": [self.name],
                 "CLASS": [self.class_number],
                 "EMAIL": [self.email],
                 "BOOK_ID": [self.book_id],
                 "START_DATE": [str(self.start_date)],
                 "END_DATE": [str(self.end_date)],
-                "STATUS": [self.status]}, columns = ["ID", "NAME", "CLASS", "EMAIL", "BOOK_ID", "START_DATE", "END_DATE", "STATUS"])
+                "STATUS": [self.status],
+            },
+            columns=[
+                "ID",
+                "NAME",
+                "CLASS",
+                "EMAIL",
+                "BOOK_ID",
+                "START_DATE",
+                "END_DATE",
+                "STATUS",
+            ],
+        )

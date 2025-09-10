@@ -4,8 +4,6 @@ from bookmodel import Book
 from BookService import BookService
 
 
-
-
 def give_back_book(item_id):
     book_service = BookService()
     item_id = "1224ce6e-c784-47b9-87a3-69155326acdc"
@@ -26,4 +24,3 @@ if __name__ == "__main__":
     # book_service.add_book(b)
     # print(give_back_book(2))
     print(book_service.delete("1224ce6e-c784-47b9-87a3-69155326acdc"))
-
