@@ -1,10 +1,12 @@
+"""
+This is the data model for sending LENDings to the google-sheet DB
+"""
 from dataclasses import dataclass
 from datetime import datetime
-
-import pandas
+import pandas as pd
 
 from .misc import cheaphash
-import pandas as pd
+
 
 
 @dataclass

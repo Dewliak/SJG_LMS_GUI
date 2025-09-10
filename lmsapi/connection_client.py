@@ -1,3 +1,6 @@
+"""
+The connection client is the base client working with the connection to the google sheet API
+"""
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -8,11 +11,16 @@ from .context_api import Context
 
 
 class ConnectionClient:
+    """
+    Provides a connection to the Goolge Sheet API
+    """
     SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-
+    """
+    Provides the scope to the API endpoint
+    """
     def __init__(self, context: Context) -> None:
-        # Login with Oauth to the Google api
 
+        # Login with Oauth to the Google api
         creds = Credentials.from_service_account_file(
             context.creds, scopes=ConnectionClient.SCOPES
         )

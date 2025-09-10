@@ -1,3 +1,6 @@
+"""
+This file contains various miscilenaus function for helping the work of the classes
+"""
 import hashlib
 
 

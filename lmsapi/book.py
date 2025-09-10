@@ -1,3 +1,6 @@
+"""
+This is book model for working with book types between the API and program
+"""
 from dataclasses import dataclass
 import pandas as pd
 from datetime import datetime
@@ -8,6 +11,7 @@ from base_logger import logger
 
 @dataclass
 class Book:
+
     book_id: str
     title: str
     author: str
@@ -33,6 +37,9 @@ class Book:
         self.used = int(used)
 
     def serialize_book(self) -> pd.DataFrame:
+        """
+        serializes the itselfs data so it can be used in a pandas dataframe
+        """
         time_now = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
         try:

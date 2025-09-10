@@ -7,4 +7,7 @@ class SheetName(Enum):
 
     @classmethod
     def list(cls):
+        """
+        Returns a list of all sheet names in the ENUM
+        """
         return list(map(lambda s: s, cls))

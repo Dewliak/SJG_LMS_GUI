@@ -1,3 +1,7 @@
+"""
+    This class works with getting/updating and syncing the sheet with the local pandas dataframe
+    and the google sheet
+"""
 from .connection_client import ConnectionClient
 from .context_api import Context
 from .sheet_names import SheetName
@@ -9,6 +13,10 @@ import gspread
 
 
 class WorksheetClient(ConnectionClient):
+    """
+    This class works with getting/updating and syncing the sheet with the local pandas dataframe
+    and the google sheet
+    """
     def __init__(self, context: Context):
         super().__init__(context)
 

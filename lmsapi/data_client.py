@@ -1,3 +1,8 @@
+"""
+This class works with two main things:
+1. adding/editing/deleting books
+2. processing returnal of a book
+"""
 from google.api_core.exceptions import InvalidArgument
 
 from .lend_model import LendModel
@@ -14,11 +19,7 @@ from base_logger import logger
 
 
 class DataClient(WorksheetClient):
-    """
-    This class works with two main things:
-    1. adding/editing/deleting books
-    2. processing lend
-    """
+
 
     def __init__(self, context=Context()):
         super().__init__(context)
