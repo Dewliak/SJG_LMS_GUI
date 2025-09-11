@@ -11,14 +11,12 @@ from random import randint
 from lmsapi.book import Book
 
 from nicegui import ui
-from gui.pages import main_page, crud_page
-
+from gui.pages import main_page, crud_page, add_book_page
 if __name__ in {"__main__", "__mp_main__"}:
 
     client = DataClientSingleton.get_instance()
 
     #main_page.main_page()
     crud_page.crud_page()
+    add_book_page.add_book_page()
     ui.run(native=False)
-
-    adding_something = 1
