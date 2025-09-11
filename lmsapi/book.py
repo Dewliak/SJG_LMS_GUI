@@ -15,7 +15,6 @@ class Book:
     book_id: str
     title: str
     author: str
-    title: str
     isbn: str
     quantity: int
     used: int

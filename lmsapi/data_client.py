@@ -36,10 +36,10 @@ class DataClient(WorksheetClient):
         new_row = Book("", author, title, isbn, quantity, used).serialize_book()
 
         logger.debug(f"[{__name__} - Add] New row:\n {new_row}")
+        
+        book_df = self.get_sheet(SheetName.BOOK)
 
-        self.sheets[SheetName.BOOK.value] = pd.concat(
-            [self.sheets[SheetName.BOOK.value], new_row], ignore_index=True
-        )
+        book_df = pd.concat([book_df, new_row], ignore_index=True)
 
         # UPDATING
         try:
@@ -74,7 +74,7 @@ class DataClient(WorksheetClient):
         if book_df.loc[book_df.ID == book.book_id].empty:
             raise ValueError("No such book with this ID")
 
-        self.sheets[SheetName.BOOK].loc[book_df.ID == book.book_id] = (
+        book_df.loc[book_df.ID == book.book_id] = (
             book.serialize_book()
         ).values
 
