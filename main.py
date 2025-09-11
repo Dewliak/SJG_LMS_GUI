@@ -19,6 +19,6 @@ if __name__ in {"__main__", "__mp_main__"}:
 
     #main_page.main_page()
     crud_page.crud_page()
-    ui.run(native=False)
+    ui.run(native=True, port=8081)
 
     adding_something = 1
