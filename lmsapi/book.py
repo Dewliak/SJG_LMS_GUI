@@ -40,19 +40,19 @@ class Book:
         serializes the itselfs data so it can be used in a pandas dataframe
         """
         time_now = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-
-        try:
-            # TODO CHECK FOR UNIQUITY
-            self.book_id = cheaphash(
-                str(time_now + self.author + self.title + str(self.isbn)).encode(
-                    "utf-8"
+        if self.book_id == "" or self.book_id is None:
+            try:
+                # TODO CHECK FOR UNIQUITY
+                self.book_id = cheaphash(
+                    str(time_now + self.author + self.title + str(self.isbn)).encode(
+                        "utf-8"
+                    )
                 )
-            )
-            logger.debug(f"[{__name__} - Add] Generated ID: {self.book_id}")
-        except Exception as e:
-            logger.error(
-                f"[{__name__} - Add] Error adding book, cheaphash error: \n + {e} "
-            )
+                logger.debug(f"[{__name__} - Add] Generated ID: {self.book_id}")
+            except Exception as e:
+                logger.error(
+                    f"[{__name__} - Add] Error adding book, cheaphash error: \n + {e} "
+                )
 
         serialized_book = {
             "ID": [self.book_id],

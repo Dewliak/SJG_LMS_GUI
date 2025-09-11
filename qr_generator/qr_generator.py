@@ -105,7 +105,7 @@ def generate_qr_image(
             generate_qr_code(book.link)
             run.add_picture("qrcode.png")
             row[2 * counter + 1].text = (
-                book.id + "\n\n" + book.name + "\n\n" + book.author
+                book.book_id + "\n\n" + book.name + "\n\n" + book.author
             )
 
             counter += 1

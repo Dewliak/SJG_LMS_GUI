@@ -42,7 +42,7 @@ def update_book(client):
         book_quantity.value,
         row_data["USED"],
     )
-
+    
     client.update_book(book)
 
     grid.options["rowData"][row_index]["AUTHOR"] = book_author.value

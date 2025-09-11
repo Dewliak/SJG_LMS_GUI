@@ -15,7 +15,7 @@ class QrBookModel:
         author: str,
         link: str,
     ):
-        self.book_id = book_id
-        self.name = name
-        self.author = author
-        self.link = link  # we add the link
+        self.book_id = str(book_id)
+        self.name = str(name)
+        self.author = str(author)
+        self.link = str(link)  # we add the link
