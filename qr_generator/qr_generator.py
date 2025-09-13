@@ -115,13 +115,15 @@ def generate_qr_image(
         section.left_margin = Cm(2)
 
     file_date = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-
+    file_name = f"generated_qr_images/könyv_matrica_{file_date}.docx"
     if bytes:
         bio = io.BytesIO()
         doc.save(bio)
         return doc, bio
     else:
-        doc.save(f"generated_qr_images/könyv_matrica_{file_date}.docx")
+        doc.save(file_name)
+    
+    return file_name
 
 
 if __name__ == "__main__":

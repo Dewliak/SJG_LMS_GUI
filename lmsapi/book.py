@@ -83,4 +83,4 @@ class Book:
                     f"[{__name__} - Add] Error adding book, cheaphash error: \n + {e} "
                 )
 
-        return [self.book_id,self.author,self.title,self.isbn,self.quantity,self.used]
+        return [self.book_id,self.author,self.title,self.isbn,self.quantity,self.used]s
