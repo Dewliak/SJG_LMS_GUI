@@ -2,7 +2,7 @@ from lmsapi.data_client import DataClient
 
 
 class DataClientSingleton:
-    _instance: DataClient = None
+    _instance: DataClient = None # type: ignore
 
     @classmethod
     def get_instance(cls):

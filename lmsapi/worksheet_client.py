@@ -28,7 +28,7 @@ class WorksheetClient(ConnectionClient):
             SheetName.LEND.value: self.sync_sheet(sheet_name=SheetName.LEND),
         }
 
-    def get_sheet(self, sheet_name: SheetName):
+    def get_sheet(self, sheet_name: SheetName) -> pd.DataFrame| None:
         return self.sheets[sheet_name.value]
 
     def sync_sheet(self, sheet_name: SheetName) -> pd.DataFrame | None:

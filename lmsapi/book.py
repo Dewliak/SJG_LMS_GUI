@@ -35,7 +35,8 @@ class Book:
         self.quantity = int(quantity)
         self.used = int(used)
 
-    def serialize_book(self) -> pd.DataFrame:
+
+    def serialize_book(self) -> dict:
         """
         serializes the itselfs data so it can be used in a pandas dataframe
         """
@@ -54,7 +55,7 @@ class Book:
                     f"[{__name__} - Add] Error adding book, cheaphash error: \n + {e} "
                 )
 
-        serialized_book = {
+        return {
             "ID": [self.book_id],
             "AUTHOR": [self.author],
             "TITLE": [self.title],
@@ -63,7 +64,23 @@ class Book:
             "USED": [self.used],
         }
 
-        return pd.DataFrame(
-            serialized_book,
-            columns=["ID", "AUTHOR", "TITLE", "ISBN", "QUANTITY", "USED"],
-        )
+    def serialize_book_to_list(self) -> list:
+        """
+        serializes the itselfs data so it can be used in a pandas dataframe
+        """
+        time_now = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        if self.book_id == "" or self.book_id is None:
+            try:
+                # TODO CHECK FOR UNIQUITY
+                self.book_id = cheaphash(
+                    str(time_now + self.author + self.title + str(self.isbn)).encode(
+                        "utf-8"
+                    )
+                )
+                logger.debug(f"[{__name__} - Add] Generated ID: {self.book_id}")
+            except Exception as e:
+                logger.error(
+                    f"[{__name__} - Add] Error adding book, cheaphash error: \n + {e} "
+                )
+
+        return [self.book_id,self.author,self.title,self.isbn,self.quantity,self.used]s

@@ -16,3 +16,8 @@ gui/__pycache__/services.cpython-313.pyc
 qr_generator/__pycache__/__init__.cpython-313.pyc
 qr_generator/__pycache__/qr_book_model.cpython-313.pyc
 qr_generator/__pycache__/qr_generator.cpython-313.pyc
+gui/components/__pycache__/header.cpython-313.pyc
+gui/pages/__pycache__/crud_page.cpython-313.pyc
+gui/components/__pycache__/header.cpython-313.pyc
+gui/components/__pycache__/header.cpython-313.pyc
+gui/pages/__pycache__/crud_page.cpython-313.pyc
