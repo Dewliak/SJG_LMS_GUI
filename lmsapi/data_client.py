@@ -33,13 +33,28 @@ class DataClient(WorksheetClient):
         # Generating the unique ID
 
         # Creating the entry in the DB
-        new_row = Book("", author, title, isbn, quantity, used).serialize_book()
+        new_row = Book("", author, title, isbn, quantity, used).serialize_book_to_list()
 
         logger.debug(f"[{__name__} - Add] New row:\n {new_row}")
         
         book_df = self.get_sheet(SheetName.BOOK)
 
-        book_df = pd.concat([book_df, new_row], ignore_index=True)
+        #book_df = pd.concat([book_df, new_row], ignore_index=True)
+        
+        if book_df is None:
+            logger.error(
+                f"[{__name__} - Add] Error adding book, couldn't find Sheetname.BOOK: \n + {e} "
+            )
+            return False
+        
+            # ! IMPORTANT -  Check if db is empty 
+        if(len(book_df) == 0):
+            logger.info("BOOK DB is empty")
+            
+            # create new DF + hacky workaround to reference inside client, cuz no set methods in the backend
+            self.sheets[SheetName.BOOK.value] = pd.DataFrame(new_row)
+        else:
+            book_df.loc[len(book_df.index)] = new_row
 
         # UPDATING
         try:
