@@ -8,3 +8,4 @@ def create_header():
         ui.button("CRUD", on_click=lambda: ui.navigate.to("/crud"))
         ui.button("Add book", on_click=lambda: ui.navigate.to("/add_book"))
         ui.button("QR Codes", on_click=lambda: ui.navigate.to("/qr"))
+        ui.button("Return book", on_click=lambda: ui.navigate.to("/return"))

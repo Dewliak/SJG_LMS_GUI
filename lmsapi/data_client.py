@@ -111,7 +111,6 @@ class DataClient(WorksheetClient):
         # 1. find book if exists in the db
         # 2. lower the quantity max(0, current - 1)
         # 3. delete from the lend db
-
         book_df = self.get_sheet(SheetName.BOOK)
         lend_df = self.get_sheet(SheetName.LEND)
         book_row = book_df.loc[book_df["ID"] == lend_model.book_id]
@@ -122,8 +121,12 @@ class DataClient(WorksheetClient):
             logger.error(f"[{__name__} - BOOK_RETURN] Book not found")
             raise InvalidArgument("Book not found")
 
-        book_df.loc[book_df["ID"] == lend_model.book_id, "USED"] -= 1
-
+        # TODO: resolve negative 
+        amount: int = int(book_df.loc[book_df["ID"] == lend_model.book_id, "USED"]) 
+        print("DEBUG: AMOUNT ", amount)
+        book_df.loc[book_df["ID"] == lend_model.book_id, "USED"] = max(amount - 1,0)
+        print("DEBUG: AMOUNT2 ", book_df.loc[book_df["ID"] == lend_model.book_id, "USED"])
+        
         lend_df.set_index("ID", inplace=True)
         lend_df.drop(lend_model.id, inplace=True)
         lend_df.reset_index(inplace=True)
