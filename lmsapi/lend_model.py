@@ -16,7 +16,6 @@ class LendModel:
     class_number: str
     email: str
     book_id: str
-    start_date: datetime
     end_date: datetime
     status: str
 
@@ -26,7 +25,6 @@ class LendModel:
         class_number="",
         email="",
         book_id="",
-        start_date=datetime.now(),
         end_date=datetime.now(),
     ):
         self.id = ""
@@ -34,9 +32,11 @@ class LendModel:
         self.class_number = class_number
         self.email = email
         self.book_id = book_id
-        self.start_date = start_date
         self.end_date = end_date
         self.status = "LENT"
+
+    def set_id(self, id: str):
+        self.id = id
 
     def serialize(self) -> pd.DataFrame:
         t = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
@@ -46,7 +46,6 @@ class LendModel:
             + self.class_number
             + self.email
             + str(self.book_id)
-            + str(self.start_date)
             + str(self.end_date)
         )
         unique_id = cheaphash(code_str.encode("utf-8"))
@@ -58,7 +57,6 @@ class LendModel:
                 "CLASS": [self.class_number],
                 "EMAIL": [self.email],
                 "BOOK_ID": [self.book_id],
-                "START_DATE": [str(self.start_date)],
                 "END_DATE": [str(self.end_date)],
                 "STATUS": [self.status],
             },
@@ -68,7 +66,6 @@ class LendModel:
                 "CLASS",
                 "EMAIL",
                 "BOOK_ID",
-                "START_DATE",
                 "END_DATE",
                 "STATUS",
             ],
