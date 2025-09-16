@@ -11,10 +11,10 @@ from qr_generator.qr_generator import QrBookModel, generate_qr_image
 import os
 
 columns = [
-    {'name': 'ID', 'label': 'ID', 'field': 'ID'},
-    {'name': 'TITLE',  'label': 'TITLE', 'field': 'TITLE'},
-    {"name": "AUTHOR", 'label': "AUTHOR", 'field': "AUTHOR"},
-    {'name': 'print_amount', 'label': 'Print Amount', 'field': 'print_amount'},
+    {'name': 'ID', 'label': 'ID', 'field': 'ID', 'classes': 'w-5'},
+    {'name': 'TITLE',  'label': 'TITLE', 'field': 'TITLE', 'classes': 'w-30'},
+    {"name": "AUTHOR", 'label': "AUTHOR", 'field': "AUTHOR", 'classes': 'w-20'},
+    {'name': 'print_amount', 'label': 'Print Amount', 'field': 'print_amount', 'classes': 'w-20'},
 ]
 
 ROWS = []
@@ -59,6 +59,7 @@ def generate_qr_code(table:ui.table,client:DataClient,spinner: ui.spinner):
 
         
     spinner.set_visibility(False)
+    ui.notify("The QR-code document is being downloaded",type='positive')
     ui.download.file(f"{file_name}")
 
 def delete_files_in_qr_folder():
@@ -81,13 +82,23 @@ def qr_page():
         loading_spinner = ui.spinner(size='lg')
         loading_spinner.set_visibility(False)
 
-    with ui.splitter().classes('w-screen') as splitter:
+    with ui.splitter().classes('w-full') as splitter:
         with splitter.before:
-            with ui.column().classes("w-full h-screen"):
+            with ui.column().classes("w-full h-screen mx-auto"):
                 grid = ui.aggrid.from_pandas(client.sync_sheet(SheetName.BOOK)).classes(
                 "w-full flex-1"
                 ).on('selectionChanged', lambda event: handle_checked_rows(grid, table))
+                
                 grid.options["rowSelection"] = 'multiple'
+                grid.options['columnDefs'] =[
+                                            {'field': 'ID', 'flex': 3},
+                                            {'field': 'AUTHOR', 'flex': 5},
+                                            {'field': 'TITLE', 'flex': 7},
+                                            {'field': 'ISBN', 'flex': 3},
+                                            {'field': 'QUANTITY', 'flex': 2},
+                                            {'field': 'USED', 'flex': 2}
+                                            ]
+                
                 for col in grid.options["columnDefs"]:
                     if col["field"] == "ID":
                         col["checkboxSelection"] = True
@@ -107,7 +118,7 @@ def qr_page():
 #    grid.on("rowSelected", lambda event: change_variable(event))
     
         with splitter.after:
-            table = ui.table(columns=columns, rows=ROWS).classes('w-full')
+            table = ui.table(columns=columns, rows=ROWS).classes('w-full mx-auto')
             # Age column as a number input
             table.add_slot('body-cell-print_amount', r'''
                 <q-td key="print_amount" :props="props">

@@ -61,7 +61,16 @@ def book_return_page():
 
     
     
-    grid = ui.aggrid.from_pandas(lend_df)
+    grid = ui.aggrid.from_pandas(lend_df).classes("w-full h-screen")
+
+    grid.options['columnDefs'] =[
+            {'field': 'ID', 'flex': 3},
+            {'field': 'NAME', 'flex': 6},
+            {'field': 'CLASS', 'flex': 2},
+            {'field': 'EMAIL', 'flex': 5},
+            {'field': 'BOOK_ID', 'flex': 3},
+            {'field': 'STATUS', 'flex': 2}
+            ]
 
     for col in grid.options["columnDefs"]:
         if col["field"] == "ID":

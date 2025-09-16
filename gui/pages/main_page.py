@@ -35,7 +35,7 @@ def main_page():
     with ui.row().classes('w-full h-screen flex-nowrap'):
         # LEFT HALF
         with ui.column().classes(
-            'w-1/2 h-full flex justify-start items-center bg-gray-100 pt-[10vh]'
+            'w-1/3 h-full flex justify-start items-center bg-gray-100 pt-[2vh]'
         ):
             with ui.row().classes(
                 'bg-white rounded-2xl shadow-xl aspect-square w-full max-w-[500px] flex-nowrap'
@@ -58,7 +58,7 @@ def main_page():
                         )
 
         # Right half (empty)
-        with ui.column().classes('w-1/2 h-full p-10'):
+        with ui.column().classes('w-2/3 h-full p-10'):
             ui.label('Late book lends').classes('text-2xl font-bold mb-4 text-gray-700')
             
             ui.table(
