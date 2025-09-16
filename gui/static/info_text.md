@@ -1,5 +1,6 @@
 ## 📘 Felhasználói kézikönyv — SJG LMS
 
+<br/><br/>
 ### 🖥 Alkalmazás leírása
 Ez az alkalmazás egy könyvkezelő rendszer grafikus felülettel, amely a következőket teszi lehetővé:
 
@@ -10,82 +11,88 @@ Ez az alkalmazás egy könyvkezelő rendszer grafikus felülettel, amely a köve
 
 A program a grafikus felületet a `NiceGUI` könyvtár segítségével jeleníti meg.
 
+
+> ⚠️ A program bizonyos modulok miatt lassan indul, így az elindulás eltarthat 10-20 másodpercig is
+
+
 ---
 
+<br/><br/>
 ### 📦 Rendszerkövetelmények
 
 - Windows 10 vagy újabb operációs rendszer
 - Internetkapcsolat (a Google API használatához, ha engedélyezve van)
 - A program mappájában a következő fájloknak kell lenniük:
-  - `main.exe`
+  - `sjg-lms.exe`
   - `credentials.json`
   - `secrets.json`
 
-> ⚠️ A `credentials.json` és `secrets.json` fájlok **nélkül a program nem tud csatlakozni a távoli adatforráshoz**.
+> ⚠️ A `credentials.json` és `secrets.json` fájlok **nélkül a program nem tud csatlakozni az adatbázishoz**.
 
 ---
-
+<br/><br/>
 ### 📁 Mappa szerkezete
 
 Amikor megkapod a programot, az így fog kinézni:
 
-Amikor megkapod a programot, az így fog kinézni:
+SJG-LMS/ \
+│ \
+├── generated_qr_images \
+└── sjg-lms.exe \
 
-Konyvkezelo/
-│
-├── main.exe
-├── credentials.json
-└── secrets.json
+Add hozzá a **credentials.json** és a **secrets.json** fájlokat
+
+SJG-LMS/ \
+│ \
+├── generated_qr_images \
+├── sjg-lms.exe \
+├── credentials.json \ 
+└── secrets.json \ 
 
 
 ---
 
+<br/><br/>
 ### ▶️ A program indítása
 
 1. Másold a teljes mappát (`Konyvkezelo`) a számítógépedre.
-2. Dupla kattintás a `main.exe` fájlra.
+2. Dupla kattintás a `sjg-lms.exe` fájlra.
 3. Az alkalmazás elindul, és megnyitja a grafikus felületet a böngésződben vagy beágyazott ablakban.
 
 ---
-
+<br/><br/>
 ### 📋 Használati útmutató
 
-Miután a program elindul, a felület bal oldalán megjelennek a fő menüpontok. Az egyes oldalak funkciói a következők:
+Miután a program elindul, a felület tetején megjelennek a fő menüpontok. Az egyes oldalak funkciói a következők:
 
 #### 🏠 Főoldal (`main_page`)
 - Ez az alkalmazás kezdőoldala, ahová belépés után érkezel.
 - Itt általános információkat és statisztikákat láthatsz a könyvtár adatbázisáról.
 - Gyors gombokkal elérhetők a legfontosabb funkciók (pl. új könyv hozzáadása, kölcsönzés, visszavétel).
 
-#### 📚 Könyvkezelés (CRUD oldal) (`crud_page`)
+#### 📚 Könyvkezelés (CRUD oldal) (`Books/könyvek`)
 - Ezen az oldalon tudod a meglévő könyveket **listázni, szerkeszteni vagy törölni**.
 - A könyvek táblázatos formában jelennek meg (`pandas` adatszerkezetekből töltve).
 - Lehetőség van a könyvek adatait frissíteni (cím, szerző, kiadó, ISBN stb.)
+- a filtereknek köszönhetően egyszerűen filtrálni lehet a könyveket
 - Egy kattintással törölhetsz is egy könyvet az adatbázisból.
 
-#### ➕ Új könyv hozzáadása (`add_book_page`)
+#### ➕ Új könyv hozzáadása (`Add book/Könyv hozzáadása`)
 - Itt új könyveket vihetsz fel az adatbázisba.
-- Kitölthető mezők például: **cím, szerző, ISBN, példányszám, kiadás éve, polc helye**.
-- A mentés után a könyv automatikusan megjelenik a BOOKS listában is.
+- Kitölthető mezők például: **cím, szerző, ISBN, példányszám**.
+- A mentés után a könyv automatikusan megjelenik a Books/Könyvek listában is.
 - A rendszer automatikusan hozzárendel egy azonosítót (ID-t) az új könyvhöz.
 
-#### 📷 QR-kód generálás (`qr_page`)
+#### 📷 QR-kód generálás (`QR codes/ QR kódok`)
 - Ki választasz egy (vagy több könyvet), majd megadodd, hogy az adott könyvből mennyi qr-kódot szeretnél generálni, majd ezeket egy .docx fájlba generálja le.
 
-#### 📥 Könyv visszavétele (Return book)
+#### 📥 Könyv visszavétele (Return book/ Könyv visszaadása)
 - Ez az oldal a kölcsönzött könyvek visszavételére szolgál.
-- A visszavétel történhet:
-  - könyv kiválasztásával a listából, majd a 'Return book' gomb megnyomásával a könyv visszavettnek tekintett
-- A visszavétel után a könyv státusza frissül az adatbázisban (újra kölcsönözhető lesz).
+- könyv kiválasztásával a listából, majd a 'Return book' gomb megnyomásával a könyv visszavettnek tekintett
+- A visszavétel után a könyv státusza frissül az adatbázisban(a használt könyvek száma 1-el csökken)
 
 ---
-
-### 💡 Tippek a felhasználóknak
-- A navigáció egyszerű: a fenti menüből válaszd ki a kívánt oldalt.
-- A változtatások automatikusan mentésre kerülnek.
-- Ha új könyvet adsz hozzá, frissítsd a CRUD oldalt, hogy azonnal megjelenjen a listában.
-
----
+<br/><br/>
 
 ### ⚠️ Fontos tudnivalók
 
@@ -94,7 +101,7 @@ Miután a program elindul, a felület bal oldalán megjelennek a fő menüpontok
 - A program használatához aktív internetkapcsolat szükséges, ha a távoli adatbázist használja.
 
 ---
-
+<br/><br/>
 ### ❓ Hibaelhárítás
 
 | Hibaüzenet                          | Lehetséges ok                             | Megoldás                                |
@@ -104,7 +111,7 @@ Miután a program elindul, a felület bal oldalán megjelennek a fő menüpontok
 | Nem tölt be a felület               | Nincs internetkapcsolat                   | Csatlakozz az internetre és próbáld újra |
 
 ---
-
+<br/><br/>
 ### 📧 Kapcsolat
 
 Ha problémát tapasztalsz a használat során, fordulj a fejlesztőhöz.

@@ -25,6 +25,8 @@ def info_page():
     """)
 
     with open("gui/static/info_text.md") as text_file:
-        ui.markdown(text_file.read())
+        with ui.row().classes("w-full h-screen justify-center items-center"):  # centers the box
+            with ui.column().classes("bg-white rounded-lg shadow-lg p-6"): # acts as the div container
+                ui.markdown(text_file.read())
 
         

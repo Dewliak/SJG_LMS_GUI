@@ -89,7 +89,8 @@ class DataClient(WorksheetClient):
         if book_df.loc[book_df.ID == book.book_id].empty:
             raise ValueError("No such book with this ID")
 
-        book_df.loc[book_df.ID == book.book_id] = book.serialize_book()
+        idx = book_df.index[book_df.ID == book.book_id][0]
+        book_df.loc[idx, :] = pd.Series(book.serialize_book())
         
         self.update_sheet(sheet_name=SheetName.BOOK)
 

@@ -5,6 +5,7 @@ from lmsapi import DataClient, SheetName, Book, LendModel
 
 from gui.services import DataClientSingleton
 from gui.components import header
+from gui.components.translation import Translator
 
 from datetime import date
 
@@ -34,14 +35,14 @@ def return_book(client: DataClient):
     if return_model is not None:
         try:
             client.return_book(return_model)
-            ui.notify(f"Book return", type="positive")
+            ui.notify(f"{Translator['Book return']}", type="positive")
             grid.options["row_data"] = client.get_sheet(SheetName.LEND).to_dict(orient='records')
             grid.update()
             return_model = None 
         except InvalidArgument:
-            ui.notify(f"Book not found", type="negative")
+            ui.notify(f"{Translator['Book not found']}", type="negative")
     else:
-        ui.notify(f"No lender was select", type="negative")
+        ui.notify(f"{Translator['No lender was select']}", type="negative")
 
         
     return
@@ -56,7 +57,7 @@ def book_return_page():
     ui.separator()
     lend_df = client.get_sheet(SheetName.LEND)
     book_df = client.get_sheet(SheetName.BOOK)
-    return_button = ui.button(text='Return book', on_click=lambda x: return_book(client))
+    return_button = ui.button(text=Translator['Return book'], on_click=lambda x: return_book(client))
     
 
     
@@ -64,12 +65,13 @@ def book_return_page():
     grid = ui.aggrid.from_pandas(lend_df).classes("w-full h-screen")
 
     grid.options['columnDefs'] =[
-            {'field': 'ID', 'flex': 3},
-            {'field': 'NAME', 'flex': 6},
-            {'field': 'CLASS', 'flex': 2},
-            {'field': 'EMAIL', 'flex': 5},
-            {'field': 'BOOK_ID', 'flex': 3},
-            {'field': 'STATUS', 'flex': 2}
+            {'field': 'ID', 'label':Translator["ID"],'flex': 3},
+            {'field': 'NAME', 'label':Translator["NAME"],'flex': 6},
+            {'field': 'CLASS','label':Translator["CLASS"], 'flex': 2},
+            {'field': 'EMAIL', 'label':Translator["EMAIL"],'flex': 5},
+            {'field': 'BOOK_ID', 'label':Translator["BOOK_ID"],'flex': 3},
+            {'field': 'END_DATE', 'label':Translator["END_DATE"],'flex': 3},
+            {'field': 'STATUS', 'label':Translator["STATUS"],'flex': 2}
             ]
 
     for col in grid.options["columnDefs"]:

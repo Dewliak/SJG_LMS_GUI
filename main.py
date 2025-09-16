@@ -17,7 +17,7 @@ if __name__ in {"__main__", "__mp_main__"}:
     client = DataClientSingleton.get_instance()
 
     ui.page_title('SJG - LMS')
-    
+
     #main_page.main_page()
     crud_page.crud_page()
     add_book_page.add_book_page()

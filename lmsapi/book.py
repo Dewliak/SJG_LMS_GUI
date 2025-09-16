@@ -56,12 +56,12 @@ class Book:
                 )
 
         return {
-            "ID": [self.book_id],
-            "AUTHOR": [self.author],
-            "TITLE": [self.title],
-            "ISBN": [self.isbn],
-            "QUANTITY": [self.quantity],
-            "USED": [self.used],
+            "ID": self.book_id,
+            "AUTHOR": self.author,
+            "TITLE": self.title,
+            "ISBN": self.isbn,
+            "QUANTITY": self.quantity,
+            "USED": self.used,
         }
 
     def serialize_book_to_list(self) -> list:
