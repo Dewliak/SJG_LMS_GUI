@@ -21,3 +21,12 @@ gui/pages/__pycache__/crud_page.cpython-313.pyc
 gui/components/__pycache__/header.cpython-313.pyc
 gui/components/__pycache__/header.cpython-313.pyc
 gui/pages/__pycache__/crud_page.cpython-313.pyc
+gui/pages/__pycache__/add_book_page.cpython-313.pyc
+gui/pages/__pycache__/book_return_page.cpython-313.pyc
+gui/pages/__pycache__/crud_page.cpython-313.pyc
+gui/pages/__pycache__/info_page.cpython-313.pyc
+gui/pages/__pycache__/main_page.cpython-313.pyc
+gui/pages/__pycache__/qr_page.cpython-313.pyc
+gui/pages/__pycache__/add_book_page.cpython-313.pyc
+gui/pages/__pycache__/crud_page.cpython-313.pyc
+gui/pages/__pycache__/main_page.cpython-313.pyc

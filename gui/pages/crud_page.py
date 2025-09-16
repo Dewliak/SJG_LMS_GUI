@@ -42,14 +42,20 @@ def update_book(client):
         book_quantity.value,
         row_data["USED"],
     )
+    try:
+        client.update_book(book)
+
+        grid.options["rowData"][row_index]["AUTHOR"] = book_author.value
+        grid.options["rowData"][row_index]["TITLE"] = book_title.value
+        grid.options["rowData"][row_index]["QUANTITY"] = book_quantity.value
+
+        grid.update()
+
+        ui.notify("The book was edited successfully",type='positive')
+    except:
+        ui.notify("The was an error while editing the book",type='negative')
+
     
-    client.update_book(book)
-
-    grid.options["rowData"][row_index]["AUTHOR"] = book_author.value
-    grid.options["rowData"][row_index]["TITLE"] = book_title.value
-    grid.options["rowData"][row_index]["QUANTITY"] = book_quantity.value
-
-    grid.update()
 
 
 @ui.page("/crud")
@@ -61,23 +67,18 @@ def crud_page():
 
     with ui.left_drawer(value=False).classes("bg-blue-100") as left_drawer:
         ui.button(on_click=left_drawer.hide, icon="arrow_back_ios").props("fab")
-        ui.label("Side menu")
 
-        book_author_label = ui.label("Author")
         book_author = ui.input(
-            label="Text",
-            placeholder="start typing",
-            validation={"Input too long": lambda value: len(value) < 20},
-        )
-        book_title_label = ui.label("Title")
+            label="Author",
+            placeholder="start typing"
+        ).classes("w-full m-2")
+        
         book_title = ui.input(
-            label="Text",
-            placeholder="start typing",
-            validation={"Input too long": lambda value: len(value) < 20},
-        )
+            label="Title",
+            placeholder="start typing"
+        ).classes("w-full m-2")
 
-        book_quantity_label = ui.label("Quantity")
-        book_quantity = ui.number(value=42)
+        book_quantity = ui.number(value=1, label="Quantity").classes("w-full m-2")
 
         book_update = ui.button(
             text="Update book", on_click=lambda x: update_book(client)
@@ -93,10 +94,17 @@ def crud_page():
             "w-full flex-1"
         )
 
+        grid.options['columnDefs'] =[
+        {'field': 'ID', 'flex': 3},
+        {'field': 'AUTHOR', 'flex': 8},
+        {'field': 'TITLE', 'flex': 8},
+        {'field': 'ISBN', 'flex': 5},
+        {'field': 'QUANTITY', 'flex': 2},
+        {'field': 'USED', 'flex': 2}
+        ]
     for col in grid.options["columnDefs"]:
         if col["field"] == "ID":
             col["checkboxSelection"] = True
-            col["width"] = 200
 
         if col["field"] in ["ID", "AUTHOR", "TITLE", "ISBN"]:
             col["filter"] = "agTextColumnFilter"
