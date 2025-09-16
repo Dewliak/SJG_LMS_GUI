@@ -5,16 +5,16 @@ from lmsapi import Context, DataClient, SheetName, Book
 
 from gui.services import DataClientSingleton
 from gui.components import header
-
+from gui.components.translation import Translator
 from qr_generator.qr_generator import QrBookModel, generate_qr_image
 
 import os
 
 columns = [
-    {'name': 'ID', 'label': 'ID', 'field': 'ID', 'classes': 'w-5'},
-    {'name': 'TITLE',  'label': 'TITLE', 'field': 'TITLE', 'classes': 'w-30'},
-    {"name": "AUTHOR", 'label': "AUTHOR", 'field': "AUTHOR", 'classes': 'w-20'},
-    {'name': 'print_amount', 'label': 'Print Amount', 'field': 'print_amount', 'classes': 'w-20'},
+    {'name': 'ID', 'label': Translator['ID'], 'field': 'ID', 'classes': 'w-5'},
+    {'name': 'TITLE',  'label': Translator['TITLE'], 'field': 'TITLE', 'classes': 'w-30'},
+    {"name": "AUTHOR", 'label': Translator["AUTHOR"], 'field': "AUTHOR", 'classes': 'w-20'},
+    {'name': 'print_amount', 'label': Translator['Print Amount'], 'field': 'print_amount', 'classes': 'w-20'},
 ]
 
 ROWS = []
@@ -59,7 +59,7 @@ def generate_qr_code(table:ui.table,client:DataClient,spinner: ui.spinner):
 
         
     spinner.set_visibility(False)
-    ui.notify("The QR-code document is being downloaded",type='positive')
+    ui.notify(Translator["The QR-code document is being downloaded"],type='positive')
     ui.download.file(f"{file_name}")
 
 def delete_files_in_qr_folder():
@@ -78,7 +78,7 @@ def qr_page():
     delete_files_in_qr_folder()
     with ui.row() as row:
         
-        qr_button = ui.button("Print",on_click=lambda _ : generate_qr_code(table,client,loading_spinner))
+        qr_button = ui.button(Translator["Print"],on_click=lambda _ : generate_qr_code(table,client,loading_spinner))
         loading_spinner = ui.spinner(size='lg')
         loading_spinner.set_visibility(False)
 
@@ -91,12 +91,12 @@ def qr_page():
                 
                 grid.options["rowSelection"] = 'multiple'
                 grid.options['columnDefs'] =[
-                                            {'field': 'ID', 'flex': 3},
-                                            {'field': 'AUTHOR', 'flex': 5},
-                                            {'field': 'TITLE', 'flex': 7},
-                                            {'field': 'ISBN', 'flex': 3},
-                                            {'field': 'QUANTITY', 'flex': 2},
-                                            {'field': 'USED', 'flex': 2}
+                                            {'field': 'ID', 'label':Translator["ID"],'flex': 3},
+                                            {'field': 'AUTHOR', 'label':Translator["AUTHOR"],'flex': 5},
+                                            {'field': 'TITLE', 'label':Translator["TITLE"],'flex': 7},
+                                            {'field': 'ISBN', 'label':Translator["ISBN"],'flex': 3},
+                                            {'field': 'QUANTITY', 'label':Translator["QUANTITY"],'flex': 2},
+                                            {'field': 'USED', 'label':Translator["USED"],'flex': 2}
                                             ]
                 
                 for col in grid.options["columnDefs"]:
@@ -127,6 +127,7 @@ def qr_page():
                         v-model.number="props.row.print_amount"
                         @update:model-value="() => $parent.$emit('change_print_amount', props.row)"
                         style="max-width: 100px"
+                        :min="1"
                     />
                 </q-td>
             ''')

@@ -5,6 +5,7 @@ from lmsapi.sheet_names import SheetName
 from lmsapi.book import Book
 from gui.services import DataClientSingleton
 from gui.components import header
+from gui.components.translation import Translator
 
 grid: ui.aggrid = None
 row_data = {}
@@ -24,14 +25,12 @@ def change_variable(event):
     row_index = event.args["rowIndex"]
     row_data = event.args["data"]
 
-    print("Row selected")
-    print(row_data)
     book_author.value = row_data["AUTHOR"]
     book_title.value = row_data["TITLE"]
     book_quantity.value = row_data["QUANTITY"]
 
 
-def update_book(client):
+def update_book(client: DataClient):
     global book_author, book_title, book_quantity, grid, row_index, row_data
 
     book = Book(
@@ -43,6 +42,7 @@ def update_book(client):
         row_data["USED"],
     )
     try:
+        
         client.update_book(book)
 
         grid.options["rowData"][row_index]["AUTHOR"] = book_author.value
@@ -51,9 +51,10 @@ def update_book(client):
 
         grid.update()
 
-        ui.notify("The book was edited successfully",type='positive')
-    except:
-        ui.notify("The was an error while editing the book",type='negative')
+        ui.notify(Translator["The book was edited successfully"],type='positive')
+    except Exception as E:
+        print(E)
+        ui.notify(Translator["There was an error while editing the book"],type='negative')
 
     
 
@@ -69,19 +70,19 @@ def crud_page():
         ui.button(on_click=left_drawer.hide, icon="arrow_back_ios").props("fab")
 
         book_author = ui.input(
-            label="Author",
-            placeholder="start typing"
+            label=Translator["Author"],
+            placeholder=Translator["start typing"]
         ).classes("w-full m-2")
         
         book_title = ui.input(
-            label="Title",
-            placeholder="start typing"
+            label=Translator["Title"],
+            placeholder=Translator["start typing"]
         ).classes("w-full m-2")
 
-        book_quantity = ui.number(value=1, label="Quantity").classes("w-full m-2")
+        book_quantity = ui.number(value=1, label=Translator["Quantity"]).classes("w-full m-2")
 
         book_update = ui.button(
-            text="Update book", on_click=lambda x: update_book(client)
+            text=Translator["Update book"], on_click=lambda x: update_book(client)
         )
 
     # with ui.left_drawer(value=True).classes('bg-red-30') as left_drawer_button:
@@ -95,12 +96,12 @@ def crud_page():
         )
 
         grid.options['columnDefs'] =[
-        {'field': 'ID', 'flex': 3},
-        {'field': 'AUTHOR', 'flex': 8},
-        {'field': 'TITLE', 'flex': 8},
-        {'field': 'ISBN', 'flex': 5},
-        {'field': 'QUANTITY', 'flex': 2},
-        {'field': 'USED', 'flex': 2}
+        {'field': 'ID', 'label': Translator["ID"],'flex': 3},
+        {'field': 'TITLE', 'label': Translator["TITLE"],'flex': 8},
+        {'field': 'AUTHOR', 'label': Translator["AUTHOR"],'flex': 8},
+        {'field': 'ISBN', 'label': Translator["ISBN"],'flex': 5},
+        {'field': 'QUANTITY', 'label': Translator["QUANTITY"],'flex': 2},
+        {'field': 'USED', 'label': Translator["USED"],'flex': 2}
         ]
     for col in grid.options["columnDefs"]:
         if col["field"] == "ID":

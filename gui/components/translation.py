@@ -1,3 +1,5 @@
+from typing import Dict, Literal
+
 translations = {
     "en": {
         # --- Main Page ---
@@ -12,6 +14,7 @@ translations = {
         "BOOK_ID": "BOOK_ID",
         "END_DATE": "END_DATE",
         "STATUS": "STATUS",
+        "Submit": "Submit",
 
         # --- CRUD Page ---
         "Author": "Author",
@@ -28,7 +31,7 @@ translations = {
         "USED": "USED",
 
         # --- Book Return Page ---
-        "Return book": "Return book",
+        "Book returnal": "Return book",
         "Book return": "Book returned",
         "Book not found": "Book not found",
         "No lender was select": "No lender was selected",
@@ -37,6 +40,14 @@ translations = {
         "Print": "Print",
         "Print Amount": "Print Amount",
         "The QR-code document is being downloaded": "The QR-code document is being downloaded",
+
+        # --- Header ---
+        "Home": "Home",
+        "Books": "Books",
+        "Return book": "Return book",
+        "Add book": "Add book",
+        "QR Codes": "QR Codes",
+        "Info": "Info",
     },
     "hu": {
         # --- Main Page ---
@@ -50,8 +61,8 @@ translations = {
         "EMAIL": "E-mail",
         "BOOK_ID": "Könyv ID",
         "END_DATE": "Visszahozás dátuma",
-        "STATUS": "Állapot",
-
+        "STATUS": "Állapot", 
+        "Submit": "Hozzáad",
         # --- CRUD Page ---
         "Author": "Szerző",
         "Title": "Cím",
@@ -67,7 +78,7 @@ translations = {
         "USED": "Használatban",
 
         # --- Book Return Page ---
-        "Return book": "Könyv visszahozása",
+        "Book returnal": "Könyvek visszahozása",
         "Book return": "A könyv visszahozva",
         "Book not found": "A könyvet nem találta",
         "No lender was select": "Nem lett kiválasztva kölcsönző",
@@ -76,5 +87,30 @@ translations = {
         "Print": "Nyomtatás",
         "Print Amount": "Példányszám",
         "The QR-code document is being downloaded": "A QR-kód dokumentum letöltése folyamatban",
+        
+        # --- Header
+        "Home": "Otthon",
+        "Books": "Könyvek",
+        "Return book": "Könyv visszavétele",
+        "Add book": "Könyv hozzáadása",
+        "QR Codes": "QR kódok",
+        "Info": "Információk",
+
     }
 }
+
+class Translator:
+    dictionary: Dict[str, Dict[str, str]] = translations
+    language: Literal['hu', 'en'] = 'hu'
+    available_languages = ('en', ' hu')
+    
+    @classmethod
+    def translate(cls, text: str):
+        return Translator.dictionary[Translator.language][text]
+    
+    @classmethod
+    def __class_getitem__(cls, key: str) ->str :
+        return Translator.translate(key)
+
+
+
