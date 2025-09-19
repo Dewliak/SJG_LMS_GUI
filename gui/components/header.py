@@ -1,7 +1,7 @@
 from nicegui import ui
 from gui.components.translation import Translator
 from typing import Literal
-DARK = ui.dark_mode()
+
 
 def change_language(value: Literal["en",'hu'], dropdown: ui.dropdown_button):
     Translator.language = value
@@ -22,7 +22,6 @@ def create_header():
                 with ui.dropdown_button(Translator.language, auto_close=True).classes('font-bold ml-auto mr-5') as lang_dropdown:     
                     ui.item('hu', on_click=lambda: change_language("hu", lang_dropdown))
                     ui.item('en', on_click=lambda: change_language("en", lang_dropdown))
-                ui.switch('Dark mode').bind_value(DARK).classes('font-bold  mr-5 text-xl')
                 ui.label("SJG LMS").classes('font-bold ml-5 mr-30 text-2xl')
 
                 

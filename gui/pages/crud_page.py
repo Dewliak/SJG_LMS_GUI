@@ -15,6 +15,16 @@ book_title = None
 book_quantity = None
 
 
+
+def ask_delete():
+    async def _ask():
+        result = await confirm_dialog  # Wait for user choice
+        if result == 'yes':
+            ui.notify('Deleted!')
+        else:
+            ui.notify('Cancelled')
+    ui.run_later(_ask)  # run async inside event loop
+
 def change_variable(event):
     global row_data, row_index
     if not event.args.get("selected", False):
@@ -57,6 +67,33 @@ def update_book(client: DataClient):
         ui.notify(Translator["There was an error while editing the book"],type='negative')
 
     
+def delete_book(client: DataClient):
+    global book_author, book_title, book_quantity, grid, row_index, row_data
+    book = Book(
+        row_data["ID"],
+        book_author.value,
+        book_title.value,
+        row_data["ISBN"],
+        book_quantity.value,
+        row_data["USED"],
+    )
+
+    if row_data["USED"] > 0:
+        ui.notify(Translator["You can only delete books when there is 0 in usage."],type='negative')
+        return
+    
+    try:
+        client.remove_book(book)
+        df = client.get_sheet(SheetName.BOOK)
+        data = df.to_dict(orient='records')
+        grid.options["rowData"] = data
+        grid.update()
+        ui.notify(Translator["The book was deleted successfully!"],type='positive')
+    except Exception as E:
+        print(E)
+        ui.notify(Translator["The was an error deleting the book!"],type='negative')
+
+
 
 
 @ui.page("/crud")
@@ -65,6 +102,21 @@ def crud_page():
 
     header.create_header()
     client = DataClientSingleton.get_instance()
+
+    with ui.dialog() as dialog, ui.card():
+        ui.label(Translator["Do you want to delete it?"])
+        with ui.row():
+            ui.button('Yes', on_click=lambda: dialog.submit('Yes'))
+            ui.button('No', on_click=lambda: dialog.submit('No'))
+
+
+    async def show():
+        dialog.open() 
+        result = await dialog
+        if result == "Yes":
+            delete_book(client)
+        
+
 
     with ui.left_drawer(value=False).classes("bg-blue-100") as left_drawer:
         ui.button(on_click=left_drawer.hide, icon="arrow_back_ios").props("fab")
@@ -86,8 +138,9 @@ def crud_page():
         )
 
     # with ui.left_drawer(value=True).classes('bg-red-30') as left_drawer_button:
-    ui.button(on_click=left_drawer.toggle, icon="edit").props("fab")
-
+    with ui.row():
+        ui.button(on_click=left_drawer.toggle, icon="edit").props("fab")
+        ui.button(on_click=show, icon="delete").props("fab")
     ui.separator()
 
     with ui.column().classes("w-full h-screen"):
