@@ -29,7 +29,11 @@ translations = {
         "ISBN": "ISBN",
         "QUANTITY": "QUANTITY",
         "USED": "USED",
-
+        "You can only delete books when there is 0 in usage.":"You can only delete books when there is 0 in usage.",
+        "The book was deleted successfully!":"The book was deleted successfully!",
+        "The was an error deleting the book!":"The was an error deleting the book!",
+        "Do you want to delete it?": "Do you want to delete it?",
+        
         # --- Book Return Page ---
         "Book returnal": "Return book",
         "Book return": "Book returned",
@@ -63,6 +67,7 @@ translations = {
         "END_DATE": "Visszahozás dátuma",
         "STATUS": "Állapot", 
         "Submit": "Hozzáad",
+
         # --- CRUD Page ---
         "Author": "Szerző",
         "Title": "Cím",
@@ -76,7 +81,10 @@ translations = {
         "ISBN": "ISBN",
         "QUANTITY": "Mennyiség",
         "USED": "Használatban",
-
+        "You can only delete books when there is 0 in usage.":"Csak olyan könyveket használhatsz, amik nincsenek használatban (USAGE=0)",
+        "The book was deleted successfully!":"A könyv sikeresen törölve lett!",
+        "The was an error deleting the book!":"Hiba történt a könyv törlése közben!",
+        "Do you want to delete it?": "Biztosan ki akarod törölni?",
         # --- Book Return Page ---
         "Book returnal": "Könyvek visszahozása",
         "Book return": "A könyv visszahozva",

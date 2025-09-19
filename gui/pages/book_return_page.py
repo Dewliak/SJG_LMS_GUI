@@ -8,9 +8,14 @@ from gui.components import header
 from gui.components.translation import Translator
 
 from datetime import date
-
+import asyncio
 grid: ui.aggrid = None
 return_model: LendModel| None = None
+client: DataClient = None
+dialog: ui.dialog = None
+
+
+    
 
 def change_variable(event):
     global return_model
@@ -32,15 +37,20 @@ def change_variable(event):
 def return_book(client: DataClient):
     global return_model, grid
 
+
     if return_model is not None:
         try:
             client.return_book(return_model)
-            ui.notify(f"{Translator['Book return']}", type="positive")
+            
             grid.options["row_data"] = client.get_sheet(SheetName.LEND).to_dict(orient='records')
             grid.update()
             return_model = None 
+            ui.notify(f"{Translator['Book return']}", type="positive")
         except InvalidArgument:
             ui.notify(f"{Translator['Book not found']}", type="negative")
+
+            
+
     else:
         ui.notify(f"{Translator['No lender was select']}", type="negative")
 

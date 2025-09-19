@@ -108,6 +108,17 @@ class DataClient(WorksheetClient):
 
         self.update_sheet(SheetName.BOOK)
 
+
+    def remove_lend(self, lend:LendModel):
+        # might raise keyerror
+        lend_df = self.get_sheet(SheetName.LEND)
+
+        lend_df.set_index("ID", inplace=True)
+        lend_df.drop(lend.id, inplace=True)
+        lend_df.reset_index(inplace=True)
+
+        self.update_sheet(SheetName.LEND)
+
     def return_book(self, lend_model: LendModel):
         # 1. find book if exists in the db
         # 2. lower the quantity max(0, current - 1)
